@@ -1,1 +1,739 @@
- 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过渡 (guò dù) - 汉语概念可视化</title>
+    <style>
+        /* 基础样式 */
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #343a40;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 768px;
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .content {
+            padding: 1.5rem;
+        }
+        
+        /* 标题和头部 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .word-title {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #6b46c1;
+        }
+        
+        .pinyin {
+            margin-left: 0.5rem;
+            font-size: 1.125rem;
+            font-weight: normal;
+            color: #6c757d;
+        }
+        
+        .meaning {
+            font-size: 1.125rem;
+            color: #495057;
+            margin-top: 0.25rem;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        /* 词性和释义 */
+        .word-info {
+            background-color: #f3f0ff;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .word-info p {
+            font-size: 1.125rem;
+            margin: 0.5rem 0;
+        }
+        
+        .label {
+            font-weight: 500;
+        }
+        
+        /* 常用搭配 */
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        
+        .collocation-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .collocation-card {
+            padding: 0.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .collocation-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .collocation-title {
+            font-weight: 500;
+            color: #6b46c1;
+        }
+        
+        .collocation-pinyin {
+            font-size: 0.75rem;
+            color: #6c757d;
+        }
+        
+        .collocation-meaning {
+            font-size: 0.875rem;
+            color: #495057;
+        }
+        
+        /* 可视化部分 */
+        .visualization {
+            width: 100%;
+            height: 10rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: background-color 1s;
+        }
+        
+        .visualization-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .visualization-hint {
+            position: absolute;
+            bottom: 0.5rem;
+            width: 100%;
+            text-align: center;
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+        
+        /* 时期可视化 */
+        .time-period {
+            height: 4rem;
+            width: 100%;
+            position: relative;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background: linear-gradient(to right, #8EC5FC, #E0C3FC, #FFFB7D);
+        }
+        
+        .time-indicators {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+        }
+        
+        .time-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .circle {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .inner-circle {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+        }
+        
+        .time-label {
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        
+        .transition-point {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .transition-circle {
+            width: 2rem;
+            height: 2rem;
+        }
+        
+        .transition-inner {
+            width: 1.25rem;
+            height: 1.25rem;
+            background-color: #805ad5;
+        }
+        
+        .transition-label {
+            font-weight: bold;
+        }
+        
+        .time-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: white;
+        }
+        
+        /* 阶段可视化 */
+        .stages {
+            height: 5rem;
+            width: 100%;
+            position: relative;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background: linear-gradient(to bottom right, #e0e7ff, #f3e8ff);
+        }
+        
+        .stage {
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .stage-one {
+            left: 0;
+            width: 33.333%;
+            height: 33.333%;
+            background-color: #a5b4fc;
+        }
+        
+        .stage-transition {
+            left: 33.333%;
+            width: 33.333%;
+            height: 66.667%;
+            background-color: #8b5cf6;
+            color: white;
+        }
+        
+        .stage-two {
+            left: 66.667%;
+            width: 33.333%;
+            height: 100%;
+            background-color: #6366f1;
+            color: white;
+        }
+        
+        .stage-label {
+            font-size: 0.75rem;
+        }
+        
+        /* 语言过渡可视化 */
+        .language-transition {
+            height: 4rem;
+            width: 100%;
+            position: relative;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background: linear-gradient(to right, #dbeafe, #f5f3ff, #fce7f3);
+        }
+        
+        .language {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 33.333%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .language-left {
+            left: 0;
+        }
+        
+        .language-right {
+            right: 0;
+        }
+        
+        .language-badge {
+            background-color: #60a5fa;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            color: white;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+        
+        .language-right .language-badge {
+            background-color: #f472b6;
+        }
+        
+        .language-center {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+        
+        .language-transition-badge {
+            background-color: #8b5cf6;
+            padding: 0.375rem 1rem;
+            border-radius: 0.375rem;
+            color: white;
+            font-weight: bold;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 自然过渡可视化 */
+        .natural-transition {
+            height: 4rem;
+            width: 100%;
+            position: relative;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background: linear-gradient(to right, #FFD700, #FFA07A, #87CEFA, #FFFFFF);
+        }
+        
+        .seasons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+        
+        .season {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .season-icon {
+            font-size: 1.5rem;
+        }
+        
+        .season-label {
+            font-size: 0.75rem;
+            color: #212529;
+        }
+        
+        .natural-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 0.25rem 0;
+        }
+        
+        /* 例句部分 */
+        .situation-buttons {
+            display: flex;
+            margin-bottom: 0.75rem;
+        }
+        
+        .situation-button {
+            padding: 0.25rem 0.75rem;
+            margin-right: 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .situation-active {
+            background-color: #7c3aed;
+            color: white;
+        }
+        
+        .situation-inactive {
+            background-color: #e9ecef;
+            color: #495057;
+        }
+        
+        .sentences {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .sentence-card {
+            padding: 0.75rem;
+            background-color: #f8f9fa;
+            border-radius: 0.5rem;
+        }
+        
+        .sentence {
+            font-size: 1.125rem;
+        }
+        
+        .sentence-highlight {
+            color: #7c3aed;
+            font-weight: bold;
+        }
+        
+        .sentence-pinyin {
+            font-size: 0.875rem;
+            color: #6c757d;
+            margin-top: 0.25rem;
+        }
+        
+        .sentence-translation {
+            font-size: 0.875rem;
+            color: #495057;
+            font-style: italic;
+            margin-top: 0.25rem;
+        }
+        
+        /* 返回按钮 */
+        .back-button {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #6b46c1;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .back-button:hover {
+            background-color: #553c9a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <!-- 标题和头部 -->
+            <div class="header">
+                <div>
+                    <h1 class="word-title">过渡<span class="pinyin">(guò dù)</span></h1>
+                    <p class="meaning">从一种状态到另一种状态的转变过程</p>
+                </div>
+                
+                <div class="controls">
+                    <label>
+                        <input type="checkbox" id="pinyinToggle" checked> 显示拼音
+                    </label>
+                </div>
+            </div>
+            
+            <!-- 词性和释义 -->
+            <div class="word-info">
+                <p><span class="label">词性：</span>名词/动词</p>
+                <p><span class="label">释义：</span>从一种状态到另一种状态的转变过程</p>
+            </div>
+            
+            <!-- 常用搭配 -->
+            <h2 class="section-title">常用搭配</h2>
+            <div class="collocation-grid">
+                <!-- 过渡时期 -->
+                <div class="collocation-card">
+                    <div class="collocation-header">
+                        <div>
+                            <p class="collocation-title">过渡时期</p>
+                            <p class="collocation-pinyin" id="pinyin1">guòdù shíqī</p>
+                        </div>
+                        <p class="collocation-meaning">过渡的一段时间</p>
+                    </div>
+                    <div class="time-period">
+                        <div class="time-indicators">
+                            <div class="time-point">
+                                <div class="circle">
+                                    <div class="inner-circle" style="background-color: #3b82f6;"></div>
+                                </div>
+                                <span class="time-label">过去</span>
+                            </div>
+                            
+                            <div class="time-point transition-point">
+                                <div class="circle transition-circle">
+                                    <div class="inner-circle transition-inner"></div>
+                                </div>
+                                <span class="time-label transition-label">过渡时期</span>
+                            </div>
+                            
+                            <div class="time-point">
+                                <div class="circle">
+                                    <div class="inner-circle" style="background-color: #22c55e;"></div>
+                                </div>
+                                <span class="time-label">未来</span>
+                            </div>
+                        </div>
+                        
+                        <div class="time-line"></div>
+                    </div>
+                </div>
+                
+                <!-- 过渡阶段 -->
+                <div class="collocation-card">
+                    <div class="collocation-header">
+                        <div>
+                            <p class="collocation-title">过渡阶段</p>
+                            <p class="collocation-pinyin" id="pinyin2">guòdù jiēduàn</p>
+                        </div>
+                        <p class="collocation-meaning">变化中的一个阶段</p>
+                    </div>
+                    <div class="stages">
+                        <div class="stage stage-one">
+                            <span class="stage-label">阶段一</span>
+                        </div>
+                        <div class="stage stage-transition">
+                            <span class="stage-label">过渡阶段</span>
+                        </div>
+                        <div class="stage stage-two">
+                            <span class="stage-label">阶段二</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 语言过渡 -->
+                <div class="collocation-card">
+                    <div class="collocation-header">
+                        <div>
+                            <p class="collocation-title">语言过渡</p>
+                            <p class="collocation-pinyin" id="pinyin3">yǔyán guòdù</p>
+                        </div>
+                        <p class="collocation-meaning">从一种语言到另一种语言的转变</p>
+                    </div>
+                    <div class="language-transition">
+                        <div class="language language-left">
+                            <div class="language-badge">English</div>
+                        </div>
+                        
+                        <div class="language language-right">
+                            <div class="language-badge">中文</div>
+                        </div>
+                        
+                        <div class="language-center">
+                            <div class="language-transition-badge">语言过渡</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 自然过渡 -->
+                <div class="collocation-card">
+                    <div class="collocation-header">
+                        <div>
+                            <p class="collocation-title">自然过渡</p>
+                            <p class="collocation-pinyin" id="pinyin4">zìrán guòdù</p>
+                        </div>
+                        <p class="collocation-meaning">顺其自然的变化</p>
+                    </div>
+                    <div class="natural-transition">
+                        <div class="seasons">
+                            <div class="season">
+                                <div class="season-icon">☀️</div>
+                                <div class="season-label">夏</div>
+                            </div>
+                            <div class="season">
+                                <div class="season-icon">🍂</div>
+                                <div class="season-label">秋</div>
+                            </div>
+                            <div class="season">
+                                <div class="season-icon">❄️</div>
+                                <div class="season-label">冬</div>
+                            </div>
+                            <div class="season">
+                                <div class="season-icon">🌱</div>
+                                <div class="season-label">春</div>
+                            </div>
+                        </div>
+                        <div class="natural-label">自然过渡</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 可视化部分 -->
+            <h2 class="section-title">夏天怎么过渡到冬天呢？</h2>
+            <div id="seasonTransition" class="visualization" style="background-color: #e5f6fd;">
+                <div class="visualization-text" style="color: #3498db;">冬天</div>
+                <div class="visualization-hint">点击切换季节，体验"过渡"</div>
+            </div>
+            
+            <!-- 例句部分 -->
+            <h2 class="section-title">情境例句</h2>
+            <div class="situation-buttons">
+                <button class="situation-button situation-active" data-situation="0">学习情境</button>
+                <button class="situation-button situation-inactive" data-situation="1">自然情境</button>
+                <button class="situation-button situation-inactive" data-situation="2">生活情境</button>
+            </div>
+            
+            <div class="sentences">
+                <!-- 学习情境例句 -->
+                <div class="sentence-group" id="situation0">
+                    <div class="sentence-card">
+                        <p class="sentence">留学生需要一个语言<span class="sentence-highlight">过渡</span>期来适应全中文环境。</p>
+                        <p class="sentence-pinyin">Liúxuéshēng xūyào yī gè yǔyán guòdù qī lái shìyìng quán zhōngwén huánjìng.</p>
+                        <p class="sentence-translation">International students need a language transition period to adapt to a fully Chinese environment.</p>
+                    </div>
+                    <div class="sentence-card">
+                        <p class="sentence">学校为新生安排了<span class="sentence-highlight">过渡</span>课程，帮助他们适应大学生活。</p>
+                        <p class="sentence-pinyin">Xuéxiào wèi xīnshēng ānpái le guòdù kèchéng, bāngzhù tāmen shìyìng dàxué shēnghuó.</p>
+                        <p class="sentence-translation">The school arranged transition courses for new students to help them adapt to college life.</p>
+                    </div>
+                </div>
+                
+                <!-- 自然情境例句 -->
+                <div class="sentence-group" id="situation1" style="display: none;">
+                    <div class="sentence-card">
+                        <p class="sentence">春天是冬天和夏天的<span class="sentence-highlight">过渡</span>季节。</p>
+                        <p class="sentence-pinyin">Chūntiān shì dōngtiān hé xiàtiān de guòdù jìjié.</p>
+                        <p class="sentence-translation">Spring is the transition season between winter and summer.</p>
+                    </div>
+                    <div class="sentence-card">
+                        <p class="sentence">黄昏是白天到黑夜的<span class="sentence-highlight">过渡</span>时刻。</p>
+                        <p class="sentence-pinyin">Huánghūn shì báitiān dào hēiyè de guòdù shíkè.</p>
+                        <p class="sentence-translation">Dusk is the transition moment from day to night.</p>
+                    </div>
+                </div>
+                
+                <!-- 生活情境例句 -->
+                <div class="sentence-group" id="situation2" style="display: none;">
+                    <div class="sentence-card">
+                        <p class="sentence">搬到新城市需要一段<span class="sentence-highlight">过渡</span>时间来适应。</p>
+                        <p class="sentence-pinyin">Bān dào xīn chéngshì xūyào yī duàn guòdù shíjiān lái shìyìng.</p>
+                        <p class="sentence-translation">Moving to a new city requires a transition period to adapt.</p>
+                    </div>
+                    <div class="sentence-card">
+                        <p class="sentence">放假回家后，我需要几天时间<span class="sentence-highlight">过渡</span>到正常作息。</p>
+                        <p class="sentence-pinyin">Fàngjià huí jiā hòu, wǒ xūyào jǐ tiān shíjiān guòdù dào zhèngcháng zuòxí.</p>
+                        <p class="sentence-translation">After returning home for vacation, I need a few days to transition back to a normal schedule.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 返回按钮 -->
+            <div style="text-align: center;">
+                <a href="../index.html" class="back-button">返回首页</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 拼音显示控制
+        const pinyinToggle = document.getElementById('pinyinToggle');
+        const pinyinElements = [
+            document.getElementById('pinyin1'),
+            document.getElementById('pinyin2'),
+            document.getElementById('pinyin3'),
+            document.getElementById('pinyin4'),
+            ...document.querySelectorAll('.sentence-pinyin')
+        ];
+        
+        pinyinToggle.addEventListener('change', function() {
+            pinyinElements.forEach(el => {
+                if (el) {
+                    el.style.display = this.checked ? 'block' : 'none';
+                }
+            });
+        });
+        
+        // 季节过渡动画
+        const seasonTransition = document.getElementById('seasonTransition');
+        const seasons = [
+            { bgColor: '#e5f6fd', text: '冬天', color: '#3498db' },
+            { bgColor: '#f0fff0', text: '春天 (过渡季节)', color: '#2ecc71' },
+            { bgColor: '#fffacd', text: '夏天', color: '#f39c12' },
+            { bgColor: '#fee', text: '秋天 (过渡季节)', color: '#e74c3c' }
+        ];
+        let currentSeason = 0;
+        
+        seasonTransition.addEventListener('click', function() {
+            currentSeason = (currentSeason + 1) % seasons.length;
+            const season = seasons[currentSeason];
+            
+            this.style.backgroundColor = season.bgColor;
+            this.querySelector('.visualization-text').textContent = season.text;
+            this.querySelector('.visualization-text').style.color = season.color;
+        });
+        
+        // 情境例句切换
+        const situationButtons = document.querySelectorAll('.situation-button');
+        const sentenceGroups = document.querySelectorAll('.sentence-group');
+        
+        situationButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const situationIndex = this.getAttribute('data-situation');
+                
+                // 更新按钮样式
+                situationButtons.forEach(btn => {
+                    btn.classList.remove('situation-active');
+                    btn.classList.add('situation-inactive');
+                });
+                this.classList.remove('situation-inactive');
+                this.classList.add('situation-active');
+                
+                // 显示对应例句
+                sentenceGroups.forEach((group, index) => {
+                    group.style.display = index == situationIndex ? 'block' : 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
