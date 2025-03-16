@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese Syntax Analysis - Conditional Sentences</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .sentence-structure {
+            border-left: 4px solid #4299e1;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .word {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            margin: 0.25rem;
+            border-radius: 0.25rem;
+        }
+        .conjunction {
+            background-color: #faf089;
+        }
+        .subject {
+            background-color: #c6f6d5;
+        }
+        .verb {
+            background-color: #bee3f8;
+        }
+        .object {
+            background-color: #fbd5e0;
+        }
+        .adverbial {
+            background-color: #e9d8fd;
+        }
+        .modal-particle {
+            background-color: #fed7aa;
+        }
+        .tooltip {
+            position: relative;
+            cursor: pointer;
+        }
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold mb-2 text-center">"既然...就..." Conditional Structure Analysis</h1>
+            <p class="text-center"><a href="index.html" class="text-blue-600 hover:underline">← Back to Home</a></p>
+        </header>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Structure Overview</h2>
+            <p class="mb-4">
+                The "既然...就..." structure is a common conditional pattern in Chinese that expresses a logical relationship between a factual condition and its necessary result.
+                Unlike hypothetical conditionals (such as "如果...就..."), this structure assumes that the condition is already established or accepted as true.
+            </p>
+            
+            <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-medium mb-2">Grammatical Structure:</h3>
+                <p class="mb-2">既然 + [Factual Condition] + 就 + [Logical Result/Inference]</p>
+                <ul class="list-disc pl-6">
+                    <li>"既然" (jìrán) - "since," "given that," introduces a fact or accepted premise</li>
+                    <li>"就" (jiù) - "then," introduces the logical result or inference based on the premise</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Sentence Analysis</h2>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 1:</h3>
+                <div class="mb-2">
+                    <span class="conjunction tooltip word">既然<span class="tooltip-text">Conjunction: introducing factual condition</span></span>
+                    <span class="subject tooltip word">你<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">已经<span class="tooltip-text">Adverbial: indicating completion</span></span>
+                    <span class="verb tooltip word">答应<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="adverbial tooltip word">了<span class="tooltip-text">Aspect particle: completion</span></span>，
+                    <span class="adverbial tooltip word">就<span class="tooltip-text">Conjunction: indicating result</span></span>
+                    <span class="adverbial tooltip word">不要<span class="tooltip-text">Adverbial: negation</span></span>
+                    <span class="verb tooltip word">反悔<span class="tooltip-text">Verb: predicate</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence consists of two clauses. The first clause "既然你已经答应了" (Since you have already promised) is the condition, and the second clause "就不要反悔" (then don't go back on your word) is the result.
+                    "既然" introduces an established fact (that a promise has been made), and "就" introduces the logical conclusion based on this fact (that one shouldn't break the promise).
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 2:</h3>
+                <div class="mb-2">
+                    <span class="conjunction tooltip word">既然<span class="tooltip-text">Conjunction: introducing factual condition</span></span>
+                    <span class="subject tooltip word">考试<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">已经<span class="tooltip-text">Adverbial: indicating completion</span></span>
+                    <span class="verb tooltip word">结束<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="adverbial tooltip word">了<span class="tooltip-text">Aspect particle: completion</span></span>，
+                    <span class="subject tooltip word">你<span class="tooltip-text">Subject</span></span>
+                    <span class="conjunction tooltip word">就<span class="tooltip-text">Conjunction: indicating result</span></span>
+                    <span class="adverbial tooltip word">好好<span class="tooltip-text">Adverbial: degree</span></span>
+                    <span class="verb tooltip word">休息休息<span class="tooltip-text">Verb: reduplicated form indicating short duration</span></span>
+                    <span class="modal-particle tooltip word">吧<span class="tooltip-text">Modal particle: suggestion</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence also consists of two clauses. The first clause "既然考试已经结束了" (Since the exam is already over) is the condition, and the second clause "你就好好休息休息吧" (you should take a good rest) is the result.
+                    "既然" introduces an established fact (that the exam is over), and "就" introduces the suggestion based on this fact (to rest).
+                    The reduplicated form of the verb "休息休息" indicates a short duration or light action.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 3:</h3>
+                <div class="mb-2">
+                    <span class="conjunction tooltip word">既然<span class="tooltip-text">Conjunction: introducing factual condition</span></span>
+                    <span class="subject tooltip word">大家<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">都<span class="tooltip-text">Adverbial: indicating totality</span></span>
+                    <span class="verb tooltip word">同意<span class="tooltip-text">Verb: predicate</span></span>，
+                    <span class="subject tooltip word">我们<span class="tooltip-text">Subject</span></span>
+                    <span class="conjunction tooltip word">就<span class="tooltip-text">Conjunction: indicating result</span></span>
+                    <span class="adverbial tooltip word">这么<span class="tooltip-text">Adverbial: manner</span></span>
+                    <span class="verb tooltip word">决定<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="modal-particle tooltip word">吧<span class="tooltip-text">Modal particle: suggestion</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence consists of two clauses. The first clause "既然大家都同意" (Since everyone agrees) is the condition, and the second clause "我们就这么决定吧" (let's decide this way then) is the result.
+                    "既然" introduces an established fact (that everyone agrees), and "就" introduces the decision based on this fact (to decide in this way).
+                    "这么" is a manner adverbial that refers to a way of deciding that has been mentioned before or is known to both parties.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 4:</h3>
+                <div class="mb-2">
+                    <span class="conjunction tooltip word">既然<span class="tooltip-text">Conjunction: introducing factual condition</span></span>
+                    <span class="subject tooltip word">你的病<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">已经<span class="tooltip-text">Adverbial: indicating completion</span></span>
+                    <span class="verb tooltip word">好<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="adverbial tooltip word">了<span class="tooltip-text">Aspect particle: completion</span></span>，
+                    <span class="adverbial tooltip word">就<span class="tooltip-text">Conjunction: indicating result</span></span>
+                    <span class="verb tooltip word">去<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">学校<span class="tooltip-text">Object</span></span>
+                    <span class="verb tooltip word">上课<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="modal-particle tooltip word">吧<span class="tooltip-text">Modal particle: suggestion</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence follows the "既然...就..." structure. The first clause "既然你的病已经好了" (Since your illness has already recovered) is the condition, and the second clause "就去学校上课吧" (then go to school for classes) is the result.
+                    "既然" introduces an established fact (that the person has recovered from illness), and "就" introduces the suggestion based on this fact (to go to school).
+                    The modal particle "吧" indicates a suggestion.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 5:</h3>
+                <div class="mb-2">
+                    <span class="conjunction tooltip word">既然<span class="tooltip-text">Conjunction: introducing factual condition</span></span>
+                    <span class="verb tooltip word">知道<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">大吃大喝<span class="tooltip-text">Object</span></span>
+                    <span class="adverbial tooltip word">不好<span class="tooltip-text">Adverbial: evaluation</span></span>，
+                    <span class="adverbial tooltip word">就<span class="tooltip-text">Conjunction: indicating result</span></span>
+                    <span class="adverbial tooltip word">应该<span class="tooltip-text">Adverbial: modal</span></span>
+                    <span class="verb tooltip word">改掉<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">这个坏习惯<span class="tooltip-text">Object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence follows the "既然...就..." structure. The first clause "既然知道大吃大喝不好" (Since you know overeating and drinking is not good) is the condition, and the second clause "就应该改掉这个坏习惯" (you should get rid of this bad habit) is the result.
+                    "既然" introduces an established fact (knowing that overeating is bad), and "就" introduces the logical conclusion based on this fact (that one should change the habit).
+                    The modal adverb "应该" (should) indicates obligation or necessity.
+                </p>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-semibold mb-4">Summary</h2>
+            <p class="mb-4">
+                The "既然...就..." structure is an important conditional pattern in Chinese with the following characteristics:
+            </p>
+            <ul class="list-disc pl-6 mb-4">
+                <li class="mb-2">"既然" introduces a factual condition, something that already exists or is established</li>
+                <li class="mb-2">"就" introduces the result, decision, or inference based on this fact</li>
+                <li class="mb-2">This structure expresses a logical necessity or reasonableness</li>
+                <li class="mb-2">The result clause often contains modal words (like "应该" - should) or modal particles (like "吧" - indicating suggestion)</li>
+            </ul>
+            <p>
+                This structure is commonly used in daily communication, especially when expressing suggestions, decisions, or inferences. Mastering this structure helps improve the accuracy and naturalness of Chinese expression.
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Add interactive features, such as clicking on words to display detailed explanations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize tooltips and other functionality
+        });
+    </script>
+</body>
+</html> 

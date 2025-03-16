@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese Syntax Analysis - "一连" Pattern</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .sentence-structure {
+            border-left: 4px solid #4299e1;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .word {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            margin: 0.25rem;
+            border-radius: 0.25rem;
+        }
+        .conjunction {
+            background-color: #faf089;
+        }
+        .subject {
+            background-color: #c6f6d5;
+        }
+        .verb {
+            background-color: #bee3f8;
+        }
+        .object {
+            background-color: #fbd5e0;
+        }
+        .adverbial {
+            background-color: #e9d8fd;
+        }
+        .modal-particle {
+            background-color: #fed7aa;
+        }
+        .tooltip {
+            position: relative;
+            cursor: pointer;
+        }
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold mb-2 text-center">"一连" (In Succession) Pattern Analysis</h1>
+            <p class="text-center"><a href="index.html" class="text-blue-600 hover:underline">← Back to Home</a></p>
+        </header>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Pattern Overview</h2>
+            <p class="mb-4">
+                "一连" is an adverbial phrase that indicates actions happening continuously or in succession. It is equivalent to "in succession" or "consecutively" in English.
+                This pattern is used to emphasize the continuity or repetition of an action.
+            </p>
+            
+            <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-medium mb-2">Grammatical Function:</h3>
+                <ul class="list-disc pl-6">
+                    <li>Functions as an adverbial of manner</li>
+                    <li>Modifies the verb to indicate continuous or consecutive actions</li>
+                    <li>Often used with a numeral phrase to indicate the number of times or duration</li>
+                    <li>Emphasizes the uninterrupted nature of the action</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Sentence Analysis</h2>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 1:</h3>
+                <div class="mb-2">
+                    <span class="subject tooltip word">他<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">一连<span class="tooltip-text">Adverbial: manner</span></span>
+                    <span class="verb tooltip word">打<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="adverbial tooltip word">了<span class="tooltip-text">Aspect particle: completion</span></span>
+                    <span class="object tooltip word">三个喷嚏<span class="tooltip-text">Object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> He sneezed three times in succession.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> In this sentence, "一连" functions as an adverbial of manner that modifies the verb "打" (sneeze).
+                    The subject is "他" (he), the predicate verb is "打" (sneeze), and the object is "三个喷嚏" (three sneezes).
+                    "一连" emphasizes that the sneezes happened one after another without interruption.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 2:</h3>
+                <div class="mb-2">
+                    <span class="subject tooltip word">她<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">一连<span class="tooltip-text">Adverbial: manner</span></span>
+                    <span class="verb tooltip word">工作<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="adverbial tooltip word">了<span class="tooltip-text">Aspect particle: completion</span></span>
+                    <span class="object tooltip word">三天三夜<span class="tooltip-text">Object: duration</span></span>，
+                    <span class="adverbial tooltip word">没有<span class="tooltip-text">Adverbial: negation</span></span>
+                    <span class="verb tooltip word">休息<span class="tooltip-text">Verb: predicate</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> She worked for three days and three nights in succession, without rest.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence consists of two clauses. In the first clause, "一连" functions as an adverbial of manner that modifies the verb "工作" (work).
+                    The subject is "她" (she), the predicate verb is "工作" (work), and "三天三夜" (three days and three nights) indicates the duration of the action.
+                    "一连" emphasizes the continuous nature of the work without interruption, which is further reinforced by the second clause "没有休息" (without rest).
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 3:</h3>
+                <div class="mb-2">
+                    <span class="subject tooltip word">老师<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">一连<span class="tooltip-text">Adverbial: manner</span></span>
+                    <span class="verb tooltip word">提<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="adverbial tooltip word">了<span class="tooltip-text">Aspect particle: completion</span></span>
+                    <span class="object tooltip word">五个问题<span class="tooltip-text">Object</span></span>，
+                    <span class="subject tooltip word">学生们<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">都<span class="tooltip-text">Adverbial: scope</span></span>
+                    <span class="adverbial tooltip word">没能<span class="tooltip-text">Adverbial: negation</span></span>
+                    <span class="verb tooltip word">回答<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="adverbial tooltip word">出来<span class="tooltip-text">Complement: result</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> The teacher asked five questions in succession, and the students couldn't answer any of them.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence consists of two clauses. In the first clause, "一连" functions as an adverbial of manner that modifies the verb "提" (ask).
+                    The subject is "老师" (teacher), the predicate verb is "提" (ask), and the object is "五个问题" (five questions).
+                    "一连" emphasizes that the questions were asked one after another without interruption.
+                    The second clause describes the result of this continuous questioning.
+                </p>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-semibold mb-4">Usage Notes</h2>
+            <ul class="list-disc pl-6 mb-4">
+                <li class="mb-2">
+                    <strong>Numerical expression:</strong> "一连" is typically followed by a verb and then a numerical expression indicating the number of times or duration of the action.
+                </li>
+                <li class="mb-2">
+                    <strong>Emphasis on continuity:</strong> The primary function of "一连" is to emphasize that actions happen continuously without interruption.
+                </li>
+                <li class="mb-2">
+                    <strong>Similar expressions:</strong> Other expressions with similar meanings include "接连" (in succession), "连续" (continuously), and "不断" (incessantly).
+                </li>
+                <li class="mb-2">
+                    <strong>Common contexts:</strong> "一连" is often used to describe repeated actions (sneezing, coughing), extended periods of activity (working, studying), or sequential events (asking questions, making attempts).
+                </li>
+            </ul>
+            <p>
+                Understanding the "一连" pattern helps learners express continuous or consecutive actions in Chinese, which is useful for describing sequences of events or emphasizing the persistence of an action.
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Add interactive features, such as clicking on words to display detailed explanations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize tooltips and other functionality
+        });
+    </script>
+</body>
+</html> 

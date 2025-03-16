@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义句子分析 - 中文语法分析系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .sentence-structure {
+            border-left: 4px solid #4299e1;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .word {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            margin: 0.25rem;
+            border-radius: 0.25rem;
+        }
+        .subject {
+            background-color: #c6f6d5;
+        }
+        .verb {
+            background-color: #bee3f8;
+        }
+        .object {
+            background-color: #fbd5e0;
+        }
+        .adverbial {
+            background-color: #e9d8fd;
+        }
+        .complement {
+            background-color: #fefcbf;
+        }
+        .attributive {
+            background-color: #fed7d7;
+        }
+        .conjunction {
+            background-color: #faf089;
+        }
+        .preposition {
+            background-color: #b2f5ea;
+        }
+        .tooltip {
+            position: relative;
+            cursor: pointer;
+        }
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .file-upload-container {
+            border: 2px dashed #cbd5e0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .file-upload-container:hover {
+            border-color: #4299e1;
+        }
+        .hidden {
+            display: none;
+        }
+        .custom-analyzer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6 text-center">中文语法分析系统</h1>
+        
+        <div class="flex justify-between">
+            <div class="w-3/4 pr-4">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-semibold mb-4">语法分析内容</h2>
+                    <p class="mb-6">
+                        本系统提供详细的中文语法结构分析，特别关注条件句和其他重要句型。
+                        通过对句子成分的标注和解释，帮助学习者理解中文语法结构的特点和用法。
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <a href="sentence-analysis.html" class="block p-6 bg-green-50 rounded-lg hover:bg-green-100 transition-colors duration-200">
+                            <h3 class="text-xl font-medium mb-2 text-green-700">其他课文句子</h3>
+                            <p class="text-gray-700">
+                                课文中重要句子的语法分析，包括主谓宾结构、定语状语的使用、复杂句式等。
+                            </p>
+                        </a>
+                        
+                        <a href="chinese-conditional-structures.html" class="block p-6 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors duration-200">
+                            <h3 class="text-xl font-medium mb-2 text-blue-700">"既然...就..." 结构分析</h3>
+                            <p class="text-gray-700">
+                                "既然...就..."（since...then...）结构的详细分析，包括典型例句的语法分析。
+                                这种结构表达事实条件与必然结果之间的关系。
+                            </p>
+                        </a>
+                        
+                        <a href="tongchang-pattern.html" class="block p-6 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition-colors duration-200">
+                            <h3 class="text-xl font-medium mb-2 text-yellow-700">"通常" 结构分析</h3>
+                            <p class="text-gray-700">
+                                "通常"（usually）结构的分析，表示习惯性或规律性的动作。
+                                包括例句和这个副词在句子中功能的详细语法分析。
+                            </p>
+                        </a>
+                        
+                        <a href="yibian-pattern.html" class="block p-6 bg-red-50 rounded-lg hover:bg-red-100 transition-colors duration-200">
+                            <h3 class="text-xl font-medium mb-2 text-red-700">"以便" 结构分析</h3>
+                            <p class="text-gray-700">
+                                "以便"（in order to）结构的分析，引导目的从句。
+                                包括例句和这个连词连接分句的详细语法分析。
+                            </p>
+                        </a>
+                        
+                        <a href="yilian-pattern.html" class="block p-6 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors duration-200">
+                            <h3 class="text-xl font-medium mb-2 text-purple-700">"一连" 结构分析</h3>
+                            <p class="text-gray-700">
+                                "一连"（in succession）结构的分析，表示连续或接连的动作。
+                                包括例句和这个状语短语功能的详细语法分析。
+                            </p>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-2xl font-semibold mb-4">使用指南</h2>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li class="mb-2">将鼠标悬停在句子中的词语上，可以查看其词性和语法功能的解释</li>
+                        <li class="mb-2">不同的语法成分用不同颜色标记：
+                            <ul class="list-disc pl-6 mt-2">
+                                <li class="bg-c6f6d5 inline-block px-2 py-1 rounded mr-2">主语</li>
+                                <li class="bg-bee3f8 inline-block px-2 py-1 rounded mr-2">谓语</li>
+                                <li class="bg-fbd5e0 inline-block px-2 py-1 rounded mr-2">宾语</li>
+                                <li class="bg-e9d8fd inline-block px-2 py-1 rounded mr-2">状语</li>
+                                <li class="bg-fefcbf inline-block px-2 py-1 rounded mr-2">补语</li>
+                                <li class="bg-fed7d7 inline-block px-2 py-1 rounded mr-2">定语</li>
+                                <li class="bg-faf089 inline-block px-2 py-1 rounded mr-2">连词</li>
+                            </ul>
+                        </li>
+                        <li class="mb-2">每个句子下方提供详细的语法分析</li>
+                        <li class="mb-2">右上角的自定义句子分析工具可以分析您自己的中文句子</li>
+                    </ul>
+                    <p>
+                        本工具适合中级和高级中文学习者以及对外汉语教学使用。
+                        它帮助学习者系统地理解中文语法结构。
+                    </p>
+                    <div class="mt-6 text-center">
+                        <a href="index.html" class="inline-block px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors">
+                            返回主页
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 右上角的自定义句子分析工具 -->
+    <div class="custom-analyzer bg-white rounded-lg shadow-md p-4">
+        <h2 class="text-lg font-semibold mb-2">自定义句子分析</h2>
+        
+        <div class="file-upload-container mb-3" id="dropArea">
+            <div class="mb-2">
+                <svg class="mx-auto h-8 w-8 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+            <p class="text-sm text-gray-700 mb-1">拖放文件或</p>
+            <label for="fileInput" class="inline-block px-3 py-1 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600 transition-colors text-sm">
+                选择文件
+            </label>
+            <input type="file" id="fileInput" accept=".txt" class="hidden">
+            <p class="text-xs text-gray-500 mt-1">支持TXT文件，每行一句</p>
+        </div>
+        
+        <div id="fileInfo" class="hidden mb-3 p-2 bg-blue-50 rounded-md text-sm">
+            <p id="fileName" class="font-medium"></p>
+            <p id="fileSize" class="text-xs text-gray-600"></p>
+            <p id="sentenceCount" class="text-xs text-gray-600"></p>
+        </div>
+        
+        <div class="flex justify-center">
+            <button id="analyzeBtn" class="px-3 py-1 bg-indigo-600 text-white rounded-md cursor-pointer hover:bg-indigo-700 transition-colors text-sm hidden">
+                开始分析
+            </button>
+        </div>
+        
+        <div id="loadingIndicator" class="hidden text-center py-2">
+            <div class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-indigo-600 mb-1"></div>
+            <p class="text-sm">正在分析...</p>
+        </div>
+        
+        <div id="analysisResults" class="hidden mt-3">
+            <h3 class="text-md font-medium mb-2">分析结果</h3>
+            <div id="sentenceContainer" class="max-h-60 overflow-y-auto text-sm"></div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropArea = document.getElementById('dropArea');
+            const fileInput = document.getElementById('fileInput');
+            const fileInfo = document.getElementById('fileInfo');
+            const fileName = document.getElementById('fileName');
+            const fileSize = document.getElementById('fileSize');
+            const sentenceCount = document.getElementById('sentenceCount');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const analysisResults = document.getElementById('analysisResults');
+            const sentenceContainer = document.getElementById('sentenceContainer');
+            
+            let currentFile = null;
+            let sentences = [];
+            
+            // 处理文件拖放
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                dropArea.classList.add('border-blue-500');
+                dropArea.classList.add('bg-blue-50');
+            }
+            
+            function unhighlight() {
+                dropArea.classList.remove('border-blue-500');
+                dropArea.classList.remove('bg-blue-50');
+            }
+            
+            dropArea.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                if (files.length) {
+                    handleFiles(files[0]);
+                }
+            }
+            
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files.length) {
+                    handleFiles(fileInput.files[0]);
+                }
+            });
+            
+            function handleFiles(file) {
+                if (file.type !== 'text/plain') {
+                    alert('请上传TXT文本文件');
+                    return;
+                }
+                
+                if (file.size > 1024 * 1024) {
+                    alert('文件大小不能超过1MB');
+                    return;
+                }
+                
+                currentFile = file;
+                
+                // 显示文件信息
+                fileName.textContent = `文件: ${file.name}`;
+                fileSize.textContent = `大小: ${formatFileSize(file.size)}`;
+                
+                // 读取文件内容
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    sentences = content.split(/\r?\n/).filter(line => line.trim() !== '');
+                    
+                    if (sentences.length > 20) {
+                        alert('文件包含的句子数量不能超过20个');
+                        sentences = sentences.slice(0, 20);
+                    }
+                    
+                    sentenceCount.textContent = `句子: ${sentences.length}个`;
+                    fileInfo.classList.remove('hidden');
+                    analyzeBtn.classList.remove('hidden');
+                };
+                reader.readAsText(file);
+            }
+            
+            function formatFileSize(bytes) {
+                if (bytes < 1024) {
+                    return bytes + ' bytes';
+                } else if (bytes < 1024 * 1024) {
+                    return (bytes / 1024).toFixed(1) + ' KB';
+                } else {
+                    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+                }
+            }
+            
+            // 分析句子
+            analyzeBtn.addEventListener('click', function() {
+                if (!sentences.length) {
+                    alert('请先上传包含句子的文件');
+                    return;
+                }
+                
+                // 显示加载指示器
+                loadingIndicator.classList.remove('hidden');
+                analyzeBtn.classList.add('hidden');
+                
+                // 模拟分析过程（实际应用中可能需要调用API或使用更复杂的分析逻辑）
+                setTimeout(function() {
+                    analyzeSentences(sentences);
+                    
+                    // 隐藏加载指示器，显示分析结果
+                    loadingIndicator.classList.add('hidden');
+                    analysisResults.classList.remove('hidden');
+                }, 1000);
+            });
+            
+            function analyzeSentences(sentences) {
+                sentenceContainer.innerHTML = '';
+                
+                sentences.forEach((sentence, index) => {
+                    const analysis = analyzeChineseSentence(sentence);
+                    const sentenceElement = createSentenceElement(sentence, analysis, index + 1);
+                    sentenceContainer.appendChild(sentenceElement);
+                });
+            }
+            
+            function analyzeChineseSentence(sentence) {
+                // 这里是一个简化的中文句子分析逻辑
+                // 实际应用中可能需要使用更复杂的NLP工具或API
+                
+                // 简单的词性标注规则（仅作示例）
+                const subjectPatterns = ['我', '你', '他', '她', '它', '我们', '你们', '他们', '人们', '学生'];
+                const verbPatterns = ['是', '有', '去', '来', '做', '看', '听', '说', '读', '写', '学习', '工作', '吃', '喝', '睡觉'];
+                const objectPatterns = ['书', '电影', '音乐', '饭', '水', '茶', '咖啡', '电视', '手机', '电脑'];
+                const adverbialPatterns = ['很', '非常', '特别', '真', '太', '更', '最', '又', '也', '都', '只', '就', '才', '刚', '马上', '立刻', '已经'];
+                const conjunctionPatterns = ['和', '或者', '但是', '因为', '所以', '如果', '虽然', '而且', '不但', '不仅'];
+                const prepositionPatterns = ['在', '对', '给', '从', '向', '把', '被', '比', '为', '关于'];
+                
+                // 将句子分词（简化处理，实际应用中需要使用专业分词工具）
+                const words = sentence.split('');
+                let result = [];
+                
+                // 简单的词性判断（仅作示例）
+                for (let i = 0; i < words.length; i++) {
+                    const word = words[i];
+                    let type = '';
+                    
+                    if (subjectPatterns.some(pattern => word.includes(pattern))) {
+                        type = 'subject';
+                    } else if (verbPatterns.some(pattern => word.includes(pattern))) {
+                        type = 'verb';
+                    } else if (objectPatterns.some(pattern => word.includes(pattern))) {
+                        type = 'object';
+                    } else if (adverbialPatterns.some(pattern => word.includes(pattern))) {
+                        type = 'adverbial';
+                    } else if (conjunctionPatterns.some(pattern => word.includes(pattern))) {
+                        type = 'conjunction';
+                    } else if (prepositionPatterns.some(pattern => word.includes(pattern))) {
+                        type = 'preposition';
+                    } else {
+                        // 默认为普通词
+                        type = 'normal';
+                    }
+                    
+                    result.push({ word, type });
+                }
+                
+                return {
+                    words: result,
+                    // 简单的句子结构分析（仅作示例）
+                    structure: '这是一个简单的句子结构分析示例。实际应用中需要使用更复杂的语法分析算法。'
+                };
+            }
+            
+            function createSentenceElement(sentence, analysis, index) {
+                const div = document.createElement('div');
+                div.className = 'sentence-structure mb-3 pb-2 border-b border-gray-200';
+                
+                const h3 = document.createElement('h3');
+                h3.className = 'text-sm font-medium mb-1';
+                h3.textContent = `句子 ${index}:`;
+                div.appendChild(h3);
+                
+                const p1 = document.createElement('p');
+                p1.className = 'mb-1 text-xs';
+                p1.textContent = sentence;
+                div.appendChild(p1);
+                
+                const p2 = document.createElement('div');
+                p2.className = 'mb-1';
+                
+                // 创建带有词性标注的句子
+                analysis.words.forEach(wordObj => {
+                    const span = document.createElement('span');
+                    span.className = `${wordObj.type} tooltip word text-xs`;
+                    span.textContent = wordObj.word;
+                    
+                    const tooltip = document.createElement('span');
+                    tooltip.className = 'tooltip-text';
+                    tooltip.textContent = getWordTypeDescription(wordObj.type);
+                    
+                    span.appendChild(tooltip);
+                    p2.appendChild(span);
+                });
+                
+                div.appendChild(p2);
+                
+                const p3 = document.createElement('p');
+                p3.className = 'text-gray-700 text-xs';
+                
+                const strong = document.createElement('strong');
+                strong.textContent = '分析: ';
+                p3.appendChild(strong);
+                p3.appendChild(document.createTextNode(analysis.structure));
+                
+                div.appendChild(p3);
+                
+                return div;
+            }
+            
+            function getWordTypeDescription(type) {
+                switch (type) {
+                    case 'subject': return '主语';
+                    case 'verb': return '谓语动词';
+                    case 'object': return '宾语';
+                    case 'adverbial': return '状语';
+                    case 'complement': return '补语';
+                    case 'attributive': return '定语';
+                    case 'conjunction': return '连词';
+                    case 'preposition': return '介词';
+                    default: return '其他';
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

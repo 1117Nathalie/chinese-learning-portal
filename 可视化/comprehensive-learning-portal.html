@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对外汉语学习门户 - 第1课详解</title>
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* 基础样式 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1, h2, h3 {
+            color: #343a40;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+            color: white;
+        }
+        
+        header p {
+            margin: 10px 0 0;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            margin: 40px 0 20px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-icon {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        /* 索引页样式 */
+        .index-container {
+            padding: 0 20px;
+        }
+        
+        .index-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .index-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .index-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            padding: 15px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .card-body {
+            padding: 15px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+        
+        .vocab-card .card-header {
+            background: linear-gradient(135deg, #20c997, #0dcaf0);
+        }
+        
+        .grammar-card .card-header {
+            background: linear-gradient(135deg, #fd7e14, #ffc107);
+        }
+        
+        /* 导航 */
+        .nav-bar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .nav-brand {
+            font-weight: bold;
+            font-size: 18px;
+            color: #343a40;
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-btn {
+            padding: 8px 15px;
+            border: none;
+            background-color: #e9ecef;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background-color: #4F46E5;
+            color: white;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4F46E5;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            font-size: 20px;
+            text-decoration: none;
+        }
+        
+        /* 内容页样式 */
+        .content-page {
+            display: none;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .content-page.active {
+            display: block;
+        }
+        
+        .page-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .page-icon {
+            font-size: 36px;
+            margin-right: 15px;
+        }
+        
+        .page-title {
+            font-size: 24px;
+            margin: 0;
+        }
+        
+        .pronunciation {
+            color: #6c757d;
+            margin-top: 5px;
+            font-size: 16px;
+        }
+        
+        .definition {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+        
+        .example-sentence {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #4F46E5;
+        }
+        
+        .sentence-chinese {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .sentence-pinyin {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 8px;
+        }
+        
+        .sentence-english {
+            font-size: 14px;
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        .highlight {
+            color: #4F46E5;
+            font-weight: bold;
+        }
+        
+        .visualization {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        /* 视觉元素 */
+        .transition-visual {
+            height: 80px;
+            border-radius: 10px;
+            margin: 20px 0;
+            background: linear-gradient(to right, #4F46E5, #7C3AED, #20c997);
+            position: relative;
+        }
+        
+        .transition-marker {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            top: 10px;
+            left: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: moveRight 5s linear infinite;
+        }
+        
+        @keyframes moveRight {
+            0% { left: 50px; }
+            100% { left: calc(100% - 100px); }
+        }
+        
+        .effective-meter {
+            height: 40px;
+            background-color: #e9ecef;
+            border-radius: 20px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .effective-fill {
+            height: 100%;
+            width: 80%;
+            background: linear-gradient(90deg, #20c997, #0dcaf0);
+            border-radius: 20px;
+            position: absolute;
+            animation: fillMeter 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes fillMeter {
+            0% { width: 30%; }
+            100% { width: 80%; }
+        }
+        
+        .centered-box {
+            background-color: #4F46E5;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px auto;
+            max-width: 200px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .index-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .page-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="nav-bar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand" onclick="showPage('index')">对外汉语学习门户</a>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="showPage('index')">索引页</button>
+                <button class="nav-btn" onclick="showVocabSection()">生词</button>
+                <button class="nav-btn" onclick="showPage('grammar1')">语法</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页面标题 -->
+    <header>
+        <h1>第1课 假期综合征</h1>
+        <p>学习假期结束后的适应与调整</p>
+    </header>
+    
+    <div class="container">
+        <!-- 索引页 -->
+        <div id="index-page" class="content-page active">
+            <h2 class="section-title">
+                <span class="section-icon">📚</span>学习内容索引
+            </h2>
+            
+            <div class="index-grid">
+                <!-- 生词卡片 -->
+                <div class="index-card vocab-card" onclick="showPage('vocab1')">
+                    <div class="card-header">生词 1</div>
+                    <div class="card-body">调整 (tiáo zhěng)</div>
+                </div>
+                
+                <div class="index-card vocab-card" onclick="showPage('vocab2')">
+                    <div class="card-header">生词 2</div>
+                    <div class="card-body">过渡 (guò dù)</div>
+                </div>
+                
+                <div class="index-card vocab-card" onclick="showPage('vocab3')">
+                    <div class="card-header">生词 3</div>
+                    <div class="card-body">有效 (yǒu xiào)</div>
+                </div>
+                
+                <div class="index-card vocab-card" onclick="showPage('vocab4')">
+                    <div class="card-header">生词 4</div>
+                    <div class="card-body">现象 (xiàn xiàng)</div>
+                </div>
+                
+                <div class="index-card vocab-card" onclick="showPage('vocab5')">
+                    <div class="card-header">生词 5</div>
+                    <div class="card-body">实现 (shí xiàn)</div>
+                </div>
+                
+                <div class="index-card vocab-card" onclick="showPage('vocab6')">
+                    <div class="card-header">生词 6</div>
+                    <div class="card-body">转换 (zhuǎn huàn)</div>
+                </div>
+                
+                <div class="index-card vocab-card" onclick="showPage('vocab7')">
+                    <div class="card-header">生词 7</div>
+                    <div class="card-body">利用 (lì yòng)</div>
+                </div>
+                
+                <div class="index-card vocab-card" onclick="showPage('vocab8')">
+                    <div class="card-header">生词 8</div>
+                    <div class="card-body">心中有数 (xīn zhōng yǒu shù)</div>
+                </div>
+                
+                <!-- 语法卡片 -->
+                <div class="index-card grammar-card" onclick="showPage('grammar1')">
+                    <div class="card-header">语法点</div>
+                    <div class="card-body">以便 (yǐ biàn)</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 生词1：调整 -->
+        <div id="vocab1-page" class="content-page">
+            <div class="page-header">
+                <div class="page-icon">⚙️</div>
+                <div>
+                    <h2 class="page-title">调整</h2>
+                    <div class="pronunciation">tiáo zhěng</div>
+                </div>
+            </div>
+            
+            <div class="definition">
+                <strong>词性</strong>：动词<br>
+                <strong>释义</strong>：改变使适合，使恰当
+            </div>
+            
+            <div class="example-sentence">
+                <div class="sentence-chinese">我需要<span class="highlight">调整</span>一下作息时间。</div>
+                <div class="sentence-pinyin">Wǒ xūyào <span class="highlight">tiáozhěng</span> yíxià zuòxí shíjiān.</div>
+                <div class="sentence-english">I need to adjust my daily schedule.</div>
+            </div>
+            
+            <div class="visualization">
+                <h3>视觉理解</h3>
+                <p>调整是指通过微小的改变使事物更加合适或适当。可以想象一个人在调整闹钟时间、调整座椅高度或调整仪器设置的动作。</p>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                    <div style="font-size: 80px; margin-bottom: 10px;">⚙️↔️</div>
+                    <div style="font-size: 16px; color: #6c757d;">微调旋钮以达到最合适状态</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 生词2：过渡 -->
+        <div id="vocab2-page" class="content-page">
+            <div class="page-header">
+                <div class="page-icon">🌈</div>
+                <div>
+                    <h2 class="page-title">过渡</h2>
+                    <div class="pronunciation">guò dù</div>
+                </div>
+            </div>
+            
+            <div class="definition">
+                <strong>词性</strong>：名词/动词<br>
+                <strong>释义</strong>：从一种状态到另一种状态的转变过程
+            </div>
+            
+            <div class="example-sentence">
+                <div class="sentence-chinese">假期和工作之间需要一个<span class="highlight">过渡</span>期。</div>
+                <div class="sentence-pinyin">Jiàqī hé gōngzuò zhījiān xūyào yí gè <span class="highlight">guòdù</span> qī.</div>
+                <div class="sentence-english">We need a transition period between holidays and work.</div>
+            </div>
+            
+            <div class="visualization">
+                <h3>视觉理解</h3>
+                <p>过渡是从一种状态逐渐变化到另一种状态的过程，不是突然的变化。想象彩虹的渐变色或日出时天空的颜色变化。</p>
+                
+                <div class="transition-visual">
+                    <div class="transition-marker">🔄</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 生词3：有效 -->
+        <div id="vocab3-page" class="content-page">
+            <div class="page-header">
+                <div class="page-icon">✅</div>
+                <div>
+                    <h2 class="page-title">有效</h2>
+                    <div class="pronunciation">yǒu xiào</div>
+                </div>
+            </div>
+            
+            <div class="definition">
+                <strong>词性</strong>：形容词<br>
+                <strong>释义</strong>：能够达到预期目的的，产生预期效果的
+            </div>
+            
+            <div class="example-sentence">
+                <div class="sentence-chinese">这是一种<span class="highlight">有效</span>的学习方法。</div>
+                <div class="sentence-pinyin">Zhè shì yì zhǒng <span class="highlight">yǒuxiào</span> de xuéxí fāngfǎ.</div>
+                <div class="sentence-english">This is an effective learning method.</div>
+            </div>
+            
+            <div class="visualization">
+                <h3>视觉理解</h3>
+                <p>有效意味着能够达成目标或产生预期结果。想象一个目标被成功达成，或问题被解决的情景。</p>
+                
+                <div class="effective-meter">
+                    <div class="effective-fill"></div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                    <span style="font-size: 14px; color: #6c757d;">低效</span>
+                    <span style="font-size: 14px; color: #6c757d;">有效</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 生词4：现象 -->
+        <div id="vocab4-page" class="content-page">
+            <div class="page-header">
+                <div class="page-icon">👁️</div>
+                <div>
+                    <h2 class="page-title">现象</h2>
+                    <div class="pronunciation">xiàn xiàng</div>
+                </div>
+            </div>
+            
+            <div class="definition">
+                <strong>词性</strong>：名词<br>
+                <strong>释义</strong>：客观存在的事物表现或情况
+            </div>
+            
+            <div class="example-sentence">
+                <div class="sentence-chinese">假期结束后工作适应不良是常见<span class="highlight">现象</span>。</div>
+                <div class="sentence-pinyin">Jiàqī jiéshù hòu gōngzuò shìyìng bùliáng shì chángjiàn <span class="highlight">xiànxiàng</span>.</div>
+                <div class="sentence-english">Difficulty adapting to work after holidays is a common phenomenon.</div>
+            </div>
+            
+            <div class="visualization">
+                <h3>视觉理解</h3>
+                <p>现象是我们可以观察到的事物表现或情况，往往具有一定规律性和普遍性。想象一个科学家在观察和记录自然现象。</p>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                    <div style="font-size: 60px; margin-bottom: 10px;">
+                        🔍 👥 📊
+                    </div>
+                    <div style="font-size: 16px; color: #6c757d;">观察、记录和分析现象</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 生词5：实现 -->
+        <div id="vocab5-page" class="content-page">
+            <div class="page-header">
+                <div class="page-icon">🎯</div>
+                <div>
+                    <h2 class="page-title">实现</h2>
+                    <div class="pronunciation">shí xiàn</div>
+                </div>
+            </div>
+            
+            <div class="definition">
+                <strong>词性</strong>：动词<br>
+                <strong>释义</strong>：使计划、愿望等变为现实
+            </div>
+            
+            <div class="example-sentence">
+                <div class="sentence-chinese">他<span class="highlight">实现</span>了自己的梦想。</div>
+                <div class="sentence-pinyin">Tā <span class="highlight">shíxiàn</span> le zìjǐ de mèngxiǎng.</div>
+                <div class="sentence-english">He realized his dream.</div>
+            </div>
+            
+            <div class="visualization">
+                <h3>视觉理解</h3>
+                <p>实现是将计划、目标或愿望变成现实。想象一个人从设定目标到最终达成目标的过程。</p>
+                
+                <div style="display: flex; align-items: center; justify-content: space-between; margin: 20px 0;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 40px;">💭</div>
+                        <div style="font-size: 14px; color: #6c757d;">梦想/计划</div>
+                    </div>
+                    <div style="font-size: 30px;">➡️</div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 40px;">🏃</div>
+                        <div style="font-size: 14px; color: #6c757d;">行动</div>
+                    </div>
+                    <div style="font-size: 30px;">➡️</div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 40px;">🏆</div>
+                        <div style="font-size: 14px; color: #6c757d;">实现</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 生词6：转换 -->
+        <div id="vocab6-page" class="content-page">
+            <div class="page-header">
+                <div class="page-icon">🔄</div>
+                <div>
+                    <h2 class="page-title">转换</h2>
+                    <div class="pronunciation">zhuǎn huàn</div>
+                </div>
+            </div>
+            
+            <div class="definition">
+                <strong>词性</strong>：动词<br>
+                <strong>释义</strong>：从一种状态、形式改变到另一种
+            </div>
+            
+            <div class="example-sentence">
+                <div class="sentence-chinese">我们需要<span class="highlight">转换</span>一下心情。</div>
+                <div class="sentence-pinyin">Wǒmen xūyào <span class="highlight">zhuǎnhuàn</span> yíxià xīnqíng.</div>
+                <div class="sentence-english">We need to change our mood.</div>
+            </div>
+            
+            <div class="visualization">
+                <h3>视觉理解</h3>
+                <p>转换强调的是从一种形态变成完全不同的另一种形态，通常是比较明显的变化。想象水变成冰，或者一个人从工作状态迅速转入休闲状态。</p>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                    <div style="font-size: 60px; margin-bottom: 10px;">
+                        😢 🔄 😊
+                    </div>
+                    <div style="font-size: 16px; color: #6c757d;">情绪的转换</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 生词7：利用 -->
+        <div id="vocab7-page" class="content-page">
+            <div class="page-header">
+                <div class="page-icon">🛠️</div>
+                <div>
+                    <h2 class="page-title">利用</h2>
+                    <div class="pronunciation">lì yòng</div>
+                </div>
+            </div>
+            
+            <div class="definition">
+                <strong>词性</strong>：动词<br>
+                <strong>释义</strong>：使用、运用（资源、时间等）
+            </div>
+            
+            <div class="example-sentence">
+                <div class="sentence-chinese"><span class="highlight">利用</span>假期的最后一天准备工作。</div>
+                <div class="sentence-pinyin"><span class="highlight">Lìyòng</span> jiàqī de zuìhòu yì tiān zhǔnbèi gōngzuò.</div>
+                <div class="sentence-english">Use the last day of vacation to prepare for work.</div>
+            </div>
+            
+            <div class="visualization">
+                <h3>视觉理解</h3>
+                <p>利用是指有目的地使用资源、时间或工具等来达到某种目的。想象一个人巧妙地利用有限的材料制作出有用的东西。</p>
+                
+                <div style="display: flex; align-items: center; justify-content: space-between; margin: 20px 0;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 40px;">⏰</div>
+                        <div style="font-size: 14px; color: #6c757d;">资源</div>
+                    </div>
+                    <div style="font-size: 30px;">➕</div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 40px;">🧠</div>
+                        <div style="font-size: 14px; color: #6c757d;">智慧</div>
+                    </div>
+                    <div style="font-size: 30px;">➡️</div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 40px;">✅</div>
+                        <div style="font-size: 14px; color: #6c757d;">成果</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 生词8：心中有数 -->
+        <div id="vocab8-page" class="content-page">
+            <div class="page-header">
+                <div class="page-icon">🧠</div>
+                <div>
+                    <h2 class="page-title">心中有数</h2>
+                    <div class="pronunciation">xīn zhōng yǒu shù</div>
+                </div>
+            </div>
+            
+            <div class="definition">
+                <strong>词性</strong>：成语/固定短语<br>
+                <strong>释义</strong>：心里有把握，对情况了解清楚
+            </div>
+            
+            <div class="example-sentence">
+                <div class="sentence-chinese">做事前要<span class="highlight">心中有数</span>。</div>
+                <div class="sentence-pinyin">Zuò shì qián yào <span class="highlight">xīnzhōng yǒushù</span>.</div>
+                <div class="sentence-english">Be clear about what you are doing before you start.</div>
+            </div>
+            
+            <div class="visualization">
+                <h3>视觉理解</h3>
+                <p>心中有数形容对情况有清晰的了解和把握，知道自己在做什么以及如何进行。想象一个人对即将完成的任务胸有成竹的自信状态。</p>
+                
+                <div style="display: flex; justify-content: center; margin: 20px 0;">
+                    <div style="text-align: center; margin: 0 20px;">
+                        <div style="font-size: 60px;">😟</div>
+                        <div style="font-size: 14px; color: #6c757d;">心中无数</div>
+                    </div>
+                    <div style="text-align: center; margin: 0 20px;">
+                        <div style="font-size: 60px;">😌</div>
+                        <div style="font-size: 14px; color: #6c757d;">心中有数</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 语法点：以便 -->
+        <div id="grammar1-page" class="content-page">
+            <div class="page-header">
+                <div class="page-icon">🔍</div>
+                <div>
+                

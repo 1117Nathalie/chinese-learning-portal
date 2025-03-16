@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese Syntax Analysis - "通常" Pattern</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .sentence-structure {
+            border-left: 4px solid #4299e1;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .word {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            margin: 0.25rem;
+            border-radius: 0.25rem;
+        }
+        .conjunction {
+            background-color: #faf089;
+        }
+        .subject {
+            background-color: #c6f6d5;
+        }
+        .verb {
+            background-color: #bee3f8;
+        }
+        .object {
+            background-color: #fbd5e0;
+        }
+        .adverbial {
+            background-color: #e9d8fd;
+        }
+        .modal-particle {
+            background-color: #fed7aa;
+        }
+        .tooltip {
+            position: relative;
+            cursor: pointer;
+        }
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold mb-2 text-center">"通常" (Usually) Pattern Analysis</h1>
+            <p class="text-center"><a href="index.html" class="text-blue-600 hover:underline">← Back to Home</a></p>
+        </header>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Pattern Overview</h2>
+            <p class="mb-4">
+                "通常" is an adverb that indicates habitual or regular actions. It is equivalent to "usually" or "generally" in English.
+                This pattern is used to describe actions or situations that occur regularly or as a general rule.
+            </p>
+            
+            <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-medium mb-2">Grammatical Function:</h3>
+                <ul class="list-disc pl-6">
+                    <li>Functions as an adverbial of frequency</li>
+                    <li>Can appear at the beginning of a sentence or before the verb</li>
+                    <li>Modifies the verb or the entire sentence</li>
+                    <li>Indicates that an action happens habitually or as a general rule</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Sentence Analysis</h2>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 1:</h3>
+                <div class="mb-2">
+                    <span class="subject tooltip word">我<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">通常<span class="tooltip-text">Adverbial: frequency</span></span>
+                    <span class="adverbial tooltip word">在周末<span class="tooltip-text">Adverbial: time</span></span>
+                    <span class="verb tooltip word">看<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">电影<span class="tooltip-text">Object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> I usually watch movies on weekends.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> In this sentence, "通常" functions as an adverbial of frequency that modifies the verb "看" (watch). 
+                    The subject is "我" (I), the predicate verb is "看" (watch), and the object is "电影" (movies).
+                    "在周末" is a time adverbial that further specifies when the action typically occurs.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 2:</h3>
+                <div class="mb-2">
+                    <span class="adverbial tooltip word">通常<span class="tooltip-text">Adverbial: frequency</span></span>，
+                    <span class="subject tooltip word">孩子们<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">放学后<span class="tooltip-text">Adverbial: time</span></span>
+                    <span class="verb tooltip word">喜欢<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="verb tooltip word">玩<span class="tooltip-text">Verb: complement</span></span>
+                    <span class="object tooltip word">游戏<span class="tooltip-text">Object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> Usually, children like to play games after school.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> In this sentence, "通常" appears at the beginning of the sentence as a sentence adverbial, setting the context for the entire statement.
+                    The subject is "孩子们" (children), the predicate verb is "喜欢" (like), and the object is "玩游戏" (playing games).
+                    "放学后" is a time adverbial that specifies when the action occurs.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 3:</h3>
+                <div class="mb-2">
+                    <span class="subject tooltip word">这种情况<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">通常<span class="tooltip-text">Adverbial: frequency</span></span>
+                    <span class="adverbial tooltip word">不<span class="tooltip-text">Adverbial: negation</span></span>
+                    <span class="verb tooltip word">会<span class="tooltip-text">Auxiliary verb: possibility</span></span>
+                    <span class="verb tooltip word">发生<span class="tooltip-text">Verb: predicate</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> This situation usually does not happen.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> In this sentence, "通常" functions as an adverbial of frequency that modifies the verb phrase "不会发生" (does not happen).
+                    The subject is "这种情况" (this situation), and the predicate is "不会发生" (does not happen).
+                    "通常" indicates that the non-occurrence of the situation is a general rule or pattern.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 4:</h3>
+                <div class="mb-2">
+                    <span class="conjunction tooltip word">但是<span class="tooltip-text">Conjunction: contrast</span></span>
+                    <span class="adverbial tooltip word">通常<span class="tooltip-text">Adverbial: frequency</span></span>
+                    <span class="adverbial tooltip word">节假日过后<span class="tooltip-text">Adverbial: time</span></span>，
+                    <span class="subject tooltip word">有些人<span class="tooltip-text">Subject</span></span>
+                    <span class="verb tooltip word">会<span class="tooltip-text">Auxiliary verb: possibility</span></span>
+                    <span class="verb tooltip word">出现<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">一些不适应的状况<span class="tooltip-text">Object</span></span>，
+                    <span class="subject tooltip word">我们<span class="tooltip-text">Subject</span></span>
+                    <span class="verb tooltip word">称<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">之<span class="tooltip-text">Object: pronoun</span></span>
+                    <span class="adverbial tooltip word">为<span class="tooltip-text">Preposition</span></span>
+                    <span class="object tooltip word">假期综合征<span class="tooltip-text">Object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> But usually after holidays, some people experience adjustment difficulties, which we call "holiday syndrome."
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence consists of two clauses. In the first clause, "但是" (but) is a conjunction indicating contrast, "通常" (usually) is an adverbial of frequency, and "节假日过后" (after holidays) is a time adverbial. The subject is "有些人" (some people), "会" (will) is an auxiliary verb indicating possibility, "出现" (experience) is the predicate verb, and "一些不适应的状况" (some adjustment difficulties) is the object.
+                    
+                    In the second clause, "我们" (we) is the subject, "称" (call) is the predicate verb, "之" (it) is the object pronoun referring to the adjustment difficulties, "为" (as) is a preposition, and "假期综合征" (holiday syndrome) is the object of the preposition.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 5:</h3>
+                <div class="mb-2">
+                    <span class="subject tooltip word">我<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">晚上<span class="tooltip-text">Adverbial: time</span></span>
+                    <span class="adverbial tooltip word">通常<span class="tooltip-text">Adverbial: frequency</span></span>
+                    <span class="adverbial tooltip word">十二点以后<span class="tooltip-text">Adverbial: time</span></span>
+                    <span class="adverbial tooltip word">才<span class="tooltip-text">Adverbial: emphasis</span></span>
+                    <span class="verb tooltip word">睡觉<span class="tooltip-text">Verb: predicate</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> In the evening, I usually don't go to bed until after twelve o'clock.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> In this sentence, "我" (I) is the subject, "晚上" (in the evening) is a time adverbial, "通常" (usually) is an adverbial of frequency, "十二点以后" (after twelve o'clock) is another time adverbial, "才" (only then) is an adverbial emphasizing the lateness, and "睡觉" (sleep) is the predicate verb.
+                    
+                    The position of "通常" between two time adverbials shows its flexibility in sentence structure. It modifies the entire predicate "十二点以后才睡觉" (don't go to bed until after twelve).
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 6:</h3>
+                <div class="mb-2">
+                    <span class="adverbial tooltip word">考试之前<span class="tooltip-text">Adverbial: time</span></span>
+                    <span class="adverbial tooltip word">通常<span class="tooltip-text">Adverbial: frequency</span></span>
+                    <span class="verb tooltip word">需要<span class="tooltip-text">Verb: modal</span></span>
+                    <span class="verb tooltip word">复习复习<span class="tooltip-text">Verb: reduplicated form</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> Before exams, one usually needs to review a bit.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> In this sentence, the subject is omitted (implied as a general "one" or "people"), "考试之前" (before exams) is a time adverbial, "通常" (usually) is an adverbial of frequency, "需要" (need) is a modal verb, and "复习复习" is a reduplicated verb form indicating a light or brief action.
+                    
+                    The reduplication of "复习" (review) softens the action, suggesting "review a bit" rather than intensive studying. "通常" here indicates a general rule or common practice.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 7:</h3>
+                <div class="mb-2">
+                    <span class="adverbial tooltip word">遇到困难的时候<span class="tooltip-text">Adverbial: time</span></span>，
+                    <span class="subject tooltip word">我<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">通常<span class="tooltip-text">Adverbial: frequency</span></span>
+                    <span class="verb tooltip word">会<span class="tooltip-text">Auxiliary verb: possibility</span></span>
+                    <span class="adverbial tooltip word">向朋友<span class="tooltip-text">Adverbial: direction</span></span>
+                    <span class="verb tooltip word">求助<span class="tooltip-text">Verb: predicate</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> When encountering difficulties, I usually seek help from friends.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> In this sentence, "遇到困难的时候" (when encountering difficulties) is a time adverbial clause, "我" (I) is the subject, "通常" (usually) is an adverbial of frequency, "会" (will) is an auxiliary verb indicating possibility or tendency, "向朋友" (to friends) is a directional adverbial, and "求助" (seek help) is the predicate verb.
+                    
+                    "通常" here indicates a habitual response to difficulties. Its position before the auxiliary verb "会" shows that it modifies the entire action of seeking help.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 8:</h3>
+                <div class="mb-2">
+                    <span class="adverbial tooltip word">下课以后<span class="tooltip-text">Adverbial: time</span></span>，
+                    <span class="subject tooltip word">我<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">通常<span class="tooltip-text">Adverbial: frequency</span></span>
+                    <span class="verb tooltip word">会<span class="tooltip-text">Auxiliary verb: possibility</span></span>
+                    <span class="verb tooltip word">去<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">图书馆<span class="tooltip-text">Object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> After class, I usually go to the library.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> In this sentence, "下课以后" (after class) is a time adverbial, "我" (I) is the subject, "通常" (usually) is an adverbial of frequency, "会" (will) is an auxiliary verb indicating tendency, "去" (go) is the predicate verb, and "图书馆" (library) is the object.
+                    
+                    "通常" here indicates a regular routine after class. Its position between the subject and the auxiliary verb is a common placement for frequency adverbs in Chinese.
+                </p>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-semibold mb-4">Usage Notes</h2>
+            <ul class="list-disc pl-6 mb-4">
+                <li class="mb-2">
+                    <strong>Position flexibility:</strong> "通常" can appear at the beginning of a sentence or before the verb, giving it flexibility in sentence structure.
+                </li>
+                <li class="mb-2">
+                    <strong>Scope of modification:</strong> When placed at the beginning of a sentence, "通常" modifies the entire sentence; when placed before the verb, it specifically modifies the verb.
+                </li>
+                <li class="mb-2">
+                    <strong>Combination with negation:</strong> "通常" can be used with negation (不/没) to indicate that something generally does not happen.
+                </li>
+                <li class="mb-2">
+                    <strong>Similar expressions:</strong> Other adverbs with similar meanings include "一般" (generally), "平常" (normally), and "常常" (often).
+                </li>
+                <li class="mb-2">
+                    <strong>With time expressions:</strong> "通常" often co-occurs with time expressions to indicate habitual actions at specific times, as seen in examples like "晚上通常" (usually in the evening) and "下课以后通常" (usually after class).
+                </li>
+            </ul>
+            <p>
+                Understanding the "通常" pattern helps learners express habitual actions or general rules in Chinese, which is essential for fluent communication.
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Add interactive features, such as clicking on words to display detailed explanations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize tooltips and other functionality
+        });
+    </script>
+</body>
+</html> 

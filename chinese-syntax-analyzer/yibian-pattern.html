@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese Syntax Analysis - "以便" Pattern</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .sentence-structure {
+            border-left: 4px solid #4299e1;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .word {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            margin: 0.25rem;
+            border-radius: 0.25rem;
+        }
+        .conjunction {
+            background-color: #faf089;
+        }
+        .subject {
+            background-color: #c6f6d5;
+        }
+        .verb {
+            background-color: #bee3f8;
+        }
+        .object {
+            background-color: #fbd5e0;
+        }
+        .adverbial {
+            background-color: #e9d8fd;
+        }
+        .modal-particle {
+            background-color: #fed7aa;
+        }
+        .tooltip {
+            position: relative;
+            cursor: pointer;
+        }
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold mb-2 text-center">"以便" (In Order To) Pattern Analysis</h1>
+            <p class="text-center"><a href="index.html" class="text-blue-600 hover:underline">← Back to Home</a></p>
+        </header>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Pattern Overview</h2>
+            <p class="mb-4">
+                "以便" is a conjunction that introduces a purpose clause. It is equivalent to "in order to" or "so that" in English.
+                This pattern is used to express the purpose or intention behind an action.
+            </p>
+            
+            <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-medium mb-2">Grammatical Function:</h3>
+                <ul class="list-disc pl-6">
+                    <li>Functions as a conjunction connecting two clauses</li>
+                    <li>Introduces a purpose clause that explains why the action in the main clause is performed</li>
+                    <li>Creates a logical relationship between cause (main clause) and purpose (subordinate clause)</li>
+                    <li>Often follows a comma that separates the main clause from the purpose clause</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Sentence Analysis</h2>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 1:</h3>
+                <div class="mb-2">
+                    <span class="subject tooltip word">我<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">早<span class="tooltip-text">Adverbial: time</span></span>
+                    <span class="verb tooltip word">起床<span class="tooltip-text">Verb: predicate</span></span>，
+                    <span class="conjunction tooltip word">以便<span class="tooltip-text">Conjunction: purpose</span></span>
+                    <span class="verb tooltip word">赶上<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">第一班火车<span class="tooltip-text">Object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> I get up early in order to catch the first train.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence consists of two clauses. The first clause "我早起床" (I get up early) is the main action, and the second clause "以便赶上第一班火车" (in order to catch the first train) is the purpose clause.
+                    "以便" connects these two clauses, indicating that the first action is done for the purpose of achieving the second.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 2:</h3>
+                <div class="mb-2">
+                    <span class="subject tooltip word">他<span class="tooltip-text">Subject</span></span>
+                    <span class="verb tooltip word">记下<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">了笔记<span class="tooltip-text">Object</span></span>，
+                    <span class="conjunction tooltip word">以便<span class="tooltip-text">Conjunction: purpose</span></span>
+                    <span class="adverbial tooltip word">以后<span class="tooltip-text">Adverbial: time</span></span>
+                    <span class="verb tooltip word">复习<span class="tooltip-text">Verb: predicate</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> He took notes in order to review later.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence also consists of two clauses. The first clause "他记下了笔记" (He took notes) is the main action, and the second clause "以便以后复习" (in order to review later) is the purpose clause.
+                    "以便" introduces the purpose of the main action, and "以后" is a time adverbial that modifies "复习" (review).
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 3:</h3>
+                <div class="mb-2">
+                    <span class="subject tooltip word">我们<span class="tooltip-text">Subject</span></span>
+                    <span class="verb tooltip word">提前<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="verb tooltip word">准备<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">材料<span class="tooltip-text">Object</span></span>，
+                    <span class="conjunction tooltip word">以便<span class="tooltip-text">Conjunction: purpose</span></span>
+                    <span class="adverbial tooltip word">顺利<span class="tooltip-text">Adverbial: manner</span></span>
+                    <span class="verb tooltip word">完成<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">项目<span class="tooltip-text">Object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> We prepare the materials in advance in order to complete the project smoothly.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence consists of two clauses. The first clause "我们提前准备材料" (We prepare the materials in advance) is the main action, and the second clause "以便顺利完成项目" (in order to complete the project smoothly) is the purpose clause.
+                    "以便" connects these two clauses, indicating that the preparation is done for the purpose of smooth project completion.
+                    "顺利" is an adverbial of manner that modifies "完成" (complete).
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 4:</h3>
+                <div class="mb-2">
+                    <span class="verb tooltip word">把<span class="tooltip-text">Preposition: disposal</span></span>
+                    <span class="subject tooltip word">自己<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">下一周<span class="tooltip-text">Adverbial: time</span></span>
+                    <span class="verb tooltip word">要<span class="tooltip-text">Auxiliary verb: necessity</span></span>
+                    <span class="verb tooltip word">做<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">的工作<span class="tooltip-text">Object</span></span>
+                    <span class="adverbial tooltip word">好好<span class="tooltip-text">Adverbial: manner</span></span>
+                    <span class="verb tooltip word">安排<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="adverbial tooltip word">一下<span class="tooltip-text">Complement: slight degree</span></span>，
+                    <span class="conjunction tooltip word">以便<span class="tooltip-text">Conjunction: purpose</span></span>
+                    <span class="verb tooltip word">做到<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">心中有数<span class="tooltip-text">Object: idiom</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> Arrange your work for next week properly in order to have a clear idea of what needs to be done.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence consists of two clauses. The first clause uses the "把" (ba) construction, where "把" is a preposition that brings the object "自己下一周要做的工作" (your work for next week) forward. "好好" (properly) is an adverbial of manner, "安排" (arrange) is the predicate verb, and "一下" is a complement indicating a slight degree.
+                    
+                    The second clause is introduced by "以便" (in order to), with "做到" (achieve) as the predicate verb and "心中有数" (have a clear idea) as an idiomatic object phrase. The subject in the second clause is omitted as it's the same as in the first clause.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 5:</h3>
+                <div class="mb-2">
+                    <span class="subject tooltip word">你<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">先<span class="tooltip-text">Adverbial: time</span></span>
+                    <span class="verb tooltip word">把<span class="tooltip-text">Preposition: disposal</span></span>
+                    <span class="object tooltip word">资料<span class="tooltip-text">Object</span></span>
+                    <span class="verb tooltip word">准备<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="adverbial tooltip word">好<span class="tooltip-text">Complement: result</span></span>，
+                    <span class="conjunction tooltip word">以便<span class="tooltip-text">Conjunction: purpose</span></span>
+                    <span class="adverbial tooltip word">开会<span class="tooltip-text">Adverbial: time</span></span>
+                    <span class="adverbial tooltip word">时<span class="tooltip-text">Adverbial: time</span></span>
+                    <span class="verb tooltip word">研究<span class="tooltip-text">Verb: predicate</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> Prepare the materials first, so that they can be studied during the meeting.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence consists of two clauses. The first clause uses the "把" (ba) construction, where "你" (you) is the subject, "先" (first) is a time adverbial, "把" is a preposition that brings the object "资料" (materials) forward, "准备" (prepare) is the predicate verb, and "好" is a result complement.
+                    
+                    The second clause is introduced by "以便" (in order to), with "开会时" (during the meeting) as a time adverbial and "研究" (study) as the predicate verb. The subject and object in the second clause are omitted, as they are understood from context.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 6:</h3>
+                <div class="mb-2">
+                    <span class="subject tooltip word">我<span class="tooltip-text">Subject</span></span>
+                    <span class="verb tooltip word">要<span class="tooltip-text">Auxiliary verb: necessity</span></span>
+                    <span class="adverbial tooltip word">多<span class="tooltip-text">Adverbial: degree</span></span>
+                    <span class="verb tooltip word">看<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">中文报纸和杂志<span class="tooltip-text">Object</span></span>，
+                    <span class="conjunction tooltip word">以便<span class="tooltip-text">Conjunction: purpose</span></span>
+                    <span class="verb tooltip word">提高<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">自己的阅读能力<span class="tooltip-text">Object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> I need to read more Chinese newspapers and magazines in order to improve my reading ability.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence consists of two clauses. In the first clause, "我" (I) is the subject, "要" (need to) is an auxiliary verb indicating necessity, "多" (more) is a degree adverbial, "看" (read) is the predicate verb, and "中文报纸和杂志" (Chinese newspapers and magazines) is the object.
+                    
+                    The second clause is introduced by "以便" (in order to), with "提高" (improve) as the predicate verb and "自己的阅读能力" (my reading ability) as the object. The subject in the second clause is omitted as it's the same as in the first clause.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 7:</h3>
+                <div class="mb-2">
+                    <span class="verb tooltip word">请<span class="tooltip-text">Verb: request</span></span>
+                    <span class="subject tooltip word">您<span class="tooltip-text">Subject</span></span>
+                    <span class="verb tooltip word">留下<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">宝贵意见<span class="tooltip-text">Object</span></span>，
+                    <span class="conjunction tooltip word">以便<span class="tooltip-text">Conjunction: purpose</span></span>
+                    <span class="subject tooltip word">我们<span class="tooltip-text">Subject</span></span>
+                    <span class="verb tooltip word">能<span class="tooltip-text">Auxiliary verb: ability</span></span>
+                    <span class="adverbial tooltip word">更好<span class="tooltip-text">Adverbial: degree</span></span>
+                    <span class="adverbial tooltip word">地<span class="tooltip-text">Structural particle</span></span>
+                    <span class="verb tooltip word">改进<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">工作<span class="tooltip-text">Object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> Please leave your valuable feedback so that we can better improve our work.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence consists of two clauses. In the first clause, "请" (please) is a verb indicating a request, "您" (you, formal) is the subject, "留下" (leave) is the predicate verb, and "宝贵意见" (valuable feedback) is the object.
+                    
+                    The second clause is introduced by "以便" (in order to), with "我们" (we) as the subject, "能" (can) as an auxiliary verb indicating ability, "更好地" (better) as an adverbial phrase (with "地" as a structural particle), "改进" (improve) as the predicate verb, and "工作" (work) as the object.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Example 8:</h3>
+                <div class="mb-2">
+                    <span class="verb tooltip word">请<span class="tooltip-text">Verb: request</span></span>
+                    <span class="verb tooltip word">把<span class="tooltip-text">Preposition: disposal</span></span>
+                    <span class="subject tooltip word">您<span class="tooltip-text">Subject</span></span>
+                    <span class="object tooltip word">的联系方式<span class="tooltip-text">Object</span></span>
+                    <span class="verb tooltip word">留下<span class="tooltip-text">Verb: predicate</span></span>，
+                    <span class="conjunction tooltip word">以便<span class="tooltip-text">Conjunction: purpose</span></span>
+                    <span class="subject tooltip word">我们<span class="tooltip-text">Subject</span></span>
+                    <span class="verb tooltip word">能<span class="tooltip-text">Auxiliary verb: ability</span></span>
+                    <span class="verb tooltip word">联系<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">您<span class="tooltip-text">Object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Translation:</strong> Please leave your contact information so that we can contact you.
+                </p>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence consists of two clauses. The first clause uses the "把" (ba) construction, where "请" (please) is a verb indicating a request, "把" is a preposition that brings the object "您的联系方式" (your contact information) forward, and "留下" (leave) is the predicate verb.
+                    
+                    The second clause is introduced by "以便" (in order to), with "我们" (we) as the subject, "能" (can) as an auxiliary verb indicating ability, "联系" (contact) as the predicate verb, and "您" (you, formal) as the object.
+                </p>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-semibold mb-4">Usage Notes</h2>
+            <ul class="list-disc pl-6 mb-4">
+                <li class="mb-2">
+                    <strong>Subject omission:</strong> The subject in the purpose clause is often omitted when it is the same as the subject in the main clause.
+                </li>
+                <li class="mb-2">
+                    <strong>Similar expressions:</strong> Other conjunctions with similar meanings include "为了" (in order to), "以免" (in order not to/lest), and "好让" (so that).
+                </li>
+                <li class="mb-2">
+                    <strong>Formal usage:</strong> "以便" is more formal than "为了" and is often used in written Chinese or formal speech.
+                </li>
+                <li class="mb-2">
+                    <strong>Clause order:</strong> The purpose clause introduced by "以便" typically follows the main clause, though in some cases the order can be reversed for emphasis.
+                </li>
+                <li class="mb-2">
+                    <strong>With "把" construction:</strong> "以便" often appears in sentences with the "把" construction, which is used to emphasize the disposal or handling of an object before stating the purpose.
+                </li>
+                <li class="mb-2">
+                    <strong>In polite requests:</strong> "以便" is commonly used in polite requests or instructions, especially in formal or business contexts, as seen in examples with "请" (please).
+                </li>
+            </ul>
+            <p>
+                Understanding the "以便" pattern helps learners express purpose relationships in Chinese, which is essential for constructing complex sentences and explaining motivations behind actions.
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Add interactive features, such as clicking on words to display detailed explanations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize tooltips and other functionality
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,672 @@
+/* 现代化医生-患者角色扮演练习网页样式 */
+/* 现代化医生-患者角色扮演练习网页样式 */
+
+/* 导入Google字体 - 更多现代字体选择 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+XiaoWei&family=ZCOOL+QingKe+HuangYou&display=swap');
+
+/* 基础样式 */
+:root {
+    --primary-color: #3a7bd5;
+    --primary-light: #6facea;
+    --primary-dark: #2c5282;
+    --secondary-color: #00d2ff;
+    --accent-color: #FF5722;
+    --text-color: #2d3748;
+    --text-light: #718096;
+    --bg-color: #f8fafc;
+    --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e6f1ff 100%);
+    --card-bg: #ffffff;
+    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --success-color: #38a169;
+    --error-color: #e53e3e;
+    --border-radius: 12px;
+    --transition-speed: 0.3s;
+}
+
+body {
+    font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--bg-color);
+    background-image: var(--bg-gradient);
+    transition: all var(--transition-speed) ease;
+}
+
+/* 标题区域 */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+    transform: rotate(30deg);
+    pointer-events: none;
+}
+
+.header h1 {
+    margin: 0;
+    font-family: 'ZCOOL XiaoWei', serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 2.5em;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.header p {
+    margin: 10px 0 0;
+    font-weight: 300;
+    opacity: 0.9;
+    font-size: 1.1em;
+}
+
+/* 容器布局 */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+/* 参考区域 */
+.reference-section {
+    flex: 1;
+    min-width: 300px;
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    max-height: 650px;
+    overflow-y: auto;
+    transition: all var(--transition-speed) ease;
+    border-top: 5px solid var(--primary-light);
+}
+
+.reference-section:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transform: translateY(-5px);
+}
+
+/* 对话区域 */
+.dialogue-section {
+    flex: 2;
+    min-width: 500px;
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    transition: all var(--transition-speed) ease;
+    border-top: 5px solid var(--secondary-color);
+}
+
+.dialogue-section:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transform: translateY(-5px);
+}
+
+/* 聊天界面容器 */
+.chat-interface {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    background-color: #f0f5ff;
+    border: 1px solid rgba(58, 123, 213, 0.2);
+}
+
+/* 标题样式 */
+h2 {
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    font-weight: 700;
+    margin-top: 0;
+    position: relative;
+    font-size: 1.8em;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background-color: var(--secondary-color);
+}
+
+h3 {
+    color: var(--primary-dark);
+    font-weight: 500;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    font-size: 1.4em;
+}
+
+/* 词汇列表 */
+.vocab-list {
+    column-count: 2;
+    column-gap: 25px;
+    margin-bottom: 20px;
+}
+
+.vocab-list p {
+    margin: 8px 0;
+    break-inside: avoid;
+    padding: 5px 0;
+    transition: all var(--transition-speed) ease;
+}
+
+.vocab-list p:hover {
+    transform: translateX(5px);
+    color: var(--primary-color);
+}
+
+.vocab-list strong {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* 语法点 */
+.grammar-point {
+    background-color: #f0f7ff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 3px solid var(--primary-color);
+    border-radius: 0 8px 8px 0;
+    transition: all var(--transition-speed) ease;
+}
+
+.grammar-point:hover {
+    background-color: #e6f0ff;
+    transform: translateX(3px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.grammar-point strong {
+    color: var(--primary-color);
+}
+
+/* 角色选择器 */
+.role-selector {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #e6f0ff 0%, #f0f7ff 100%);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.role-selector p {
+    margin: 0 15px 0 0;
+    font-weight: 500;
+    color: var(--primary-dark);
+}
+
+/* 按钮样式 */
+button {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    margin: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: all 0.5s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+button:hover::after {
+    left: 100%;
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+#doctor-role {
+    background: linear-gradient(135deg, #3a7bd5 0%, #2c5282 100%);
+}
+
+#patient-role {
+    background: linear-gradient(135deg, #00b09b 0%, #096c54 100%);
+}
+
+#reset-dialogue {
+    background: linear-gradient(135deg, #f5576c 0%, #c93b4c 100%);
+}
+
+/* 对话容器 */
+.dialogue-container {
+    height: 350px;
+    overflow-y: auto;
+    padding: 15px;
+    background-color: #f8fafc;
+    position: relative;
+    scroll-behavior: smooth;
+}
+
+/* 输入区域 */
+.input-area {
+    display: flex;
+    background-color: #fff;
+    padding: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    font-size: 1em;
+    transition: all var(--transition-speed) ease;
+    background-color: #f8fafc;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(58, 123, 213, 0.2);
+    background-color: #fff;
+}
+
+.input-area button {
+    border-radius: 8px;
+    margin-left: 8px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+}
+
+/* 消息气泡样式 */
+.message {
+    margin-bottom: 15px;
+    padding: 12px 16px;
+    border-radius: 18px;
+    max-width: 80%;
+    clear: both;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    line-height: 1.5;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 医生消息 */
+.doctor {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    float: left;
+    border-bottom-left-radius: 4px;
+}
+
+.doctor::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -10px;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, transparent 50%, #bbdefb 50%);
+    border-radius: 0 0 20px 0;
+}
+
+/* 患者消息 */
+.patient {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    float: right;
+    border-bottom-right-radius: 4px;
+}
+
+.patient::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(225deg, transparent 50%, #c8e6c9 50%);
+    border-radius: 0 0 0 20px;
+}
+
+/* 系统消息 */
+.system {
+    background-color: #f5f5f5;
+    color: #757575;
+    text-align: center;
+    margin: 15px auto;
+    float: none;
+    font-style: italic;
+    box-shadow: none;
+}
+
+/* 高亮词汇 */
+.highlighted {
+    font-weight: 500;
+    color: var(--accent-color);
+    position: relative;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+.highlighted:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 1px rgba(255, 87, 34, 0.3);
+}
+
+/* 回复选项 */
+.response-options {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f0f5ff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.response-options p {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: var(--primary-dark);
+}
+
+.response-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 8px 0;
+    background: white;
+    color: var(--text-color);
+    border: 1px solid #e0e0e0;
+    transition: all var(--transition-speed) ease;
+}
+
+.response-option:hover {
+    background: #f0f7ff;
+    border-color: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 反馈区域 */
+.feedback-section {
+    margin-top: 25px;
+    padding: 20px;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--accent-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.feedback-section h3 {
+    color: var(--accent-color);
+    margin-top: 0;
+}
+
+.score-display {
+    font-size: 1.2em;
+    font-weight: 500;
+    text-align: center;
+    margin: 15px 0;
+    color: var(--text-color);
+    background: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* 目标词汇 */
+.target-vocab {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 15px 0;
+}
+
+.vocab-chip {
+    padding: 6px 12px;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    font-size: 0.9em;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.vocab-chip:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.used {
+    background-color: #c8e6c9;
+    text-decoration: line-through;
+    color: var(--success-color);
+}
+
+/* 语法反馈 */
+.grammar-feedback {
+    margin-top: 15px;
+}
+
+.grammar-feedback p {
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.grammar-feedback ul {
+    padding-left: 20px;
+}
+
+.grammar-feedback li {
+    margin-bottom: 8px;
+}
+
+/* 新增的语法评价样式 */
+.current-evaluation {
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid var(--primary-color);
+}
+
+.current-evaluation h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--primary-dark);
+    font-size: 1.1em;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+}
+
+.evaluation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.evaluation-score {
+    font-weight: 700;
+    font-size: 1.1em;
+    color: var(--accent-color);
+}
+
+.evaluation-feedback {
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.evaluation-analysis {
+    margin-top: 10px;
+}
+
+.syntax-analysis, .word-usage-analysis {
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.analysis-list {
+    margin-top: 8px;
+    padding-left: 20px;
+}
+
+.analysis-list li {
+    margin-bottom: 6px;
+}
+
+.analysis-list.correct li {
+    color: var(--success-color);
+}
+
+.analysis-list.incorrect li {
+    color: var(--error-color);
+}
+
+.grammar-name {
+    font-weight: 600;
+}
+
+.grammar-guide {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #e0e0e0;
+}
+
+/* 反馈区域高亮效果 */
+.feedback-section.highlight {
+    animation: pulse 3s ease;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(58, 123, 213, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(58, 123, 213, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(58, 123, 213, 0); }
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(58, 123, 213, 0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .reference-section, .dialogue-section {
+        min-width: 100%;
+    }
+    
+    .vocab-list {
+        column-count: 1;
+    }
+    
+    .evaluation-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .evaluation-score {
+        margin-bottom: 5px;
+    }
+    
+    .role-selector {
+        flex-direction: column;
+    }
+    
+    .role-selector p {
+        margin-bottom: 10px;
+    }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* 页面加载动画 */
+.fade-in {
+    animation: fadeIn 0.5s ease;
+}
+
+/* 移除不再需要的样式 */
+.grammar-evaluation {
+    display: none;
+}

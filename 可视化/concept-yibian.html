@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>以便 (yǐ biàn) - 汉语概念可视化</title>
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #343a40;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 导航栏 */
+        .nav-bar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .nav-brand {
+            font-weight: bold;
+            font-size: 18px;
+            color: #343a40;
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-btn {
+            padding: 8px 16px;
+            border: none;
+            background-color: #e9ecef;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #343a40;
+        }
+        
+        .nav-btn:hover {
+            background-color: #4F46E5;
+            color: white;
+        }
+        
+        /* 页眉 */
+        header {
+            background: linear-gradient(135deg, #fd7e14, #ffc107);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 42px;
+            font-weight: bold;
+        }
+        
+        header p {
+            margin: 15px 0 0;
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* 主要可视化部分 */
+        .visualization {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        
+        /* 语法结构可视化 */
+        .grammar-structure {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .structure-diagram {
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+        }
+        
+        .sentence-structure {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .structure-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .structure-block {
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            min-width: 80px;
+        }
+        
+        .subject-block {
+            background-color: #e9ecef;
+            color: #343a40;
+        }
+        
+        .verb-block {
+            background-color: #4dabf7;
+            color: white;
+        }
+        
+        .purpose-block {
+            background-color: #fd7e14;
+            color: white;
+        }
+        
+        .object-block {
+            background-color: #e9ecef;
+            color: #343a40;
+        }
+        
+        .connector {
+            font-size: 24px;
+            color: #6c757d;
+        }
+        
+        .structure-arrow {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        
+        .arrow-down {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid #dee2e6;
+        }
+        
+        .purpose-animation {
+            height: 200px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+        }
+        
+        .purpose-path {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+        }
+        
+        .start-point, .end-point {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            z-index: 2;
+        }
+        
+        .start-point {
+            background-color: #e9ecef;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .end-point {
+            background-color: #fd7e14;
+            color: white;
+            box-shadow: 0 4px 10px rgba(253, 126, 20, 0.3);
+        }
+        
+        .path-line {
+            position: absolute;
+            top: 50%;
+            left: 110px;
+            right: 110px;
+            height: 4px;
+            background: linear-gradient(90deg, #e9ecef, #fd7e14);
+            transform: translateY(-50%);
+        }
+        
+        .moving-object {
+            position: absolute;
+            top: 50%;
+            left: 110px;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: moveToGoal 4s infinite;
+            z-index: 3;
+        }
+        
+        @keyframes moveToGoal {
+            0% { left: 110px; }
+            50% { left: calc(100% - 110px); }
+            100% { left: 110px; }
+        }
+        
+        .grammar-label {
+            position: absolute;
+            top: 20px;
+            padding: 5px 15px;
+            background-color: #fd7e14;
+            color: white;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        /* 例子卡片 */
+        .example-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .example-card {
+            width: 220px;
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            padding: 15px;
+            background: linear-gradient(135deg, #fd7e14, #ffc107);
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .card-body {
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .card-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #343a40;
+        }
+        
+        .card-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        .card-text {
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        /* 句子构建器 */
+        .sentence-builder {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .builder-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+        
+        .builder-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .builder-option {
+            padding: 8px 15px;
+            background-color: #e9ecef;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .builder-option:hover {
+            background-color: #fd7e14;
+            color: white;
+        }
+        
+        .builder-display {
+            min-height: 100px;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        .builder-sentence {
+            font-size: 18px;
+            color: #343a40;
+            margin-bottom: 10px;
+        }
+        
+        .builder-pinyin {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        
+        .builder-english {
+            font-size: 14px;
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        /* 句子示例 */
+        .sentence-examples {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .sentence-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+        
+        .sentence {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            text-align: left;
+        }
+        
+        .sentence-chinese {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #343a40;
+        }
+        
+        .sentence-pinyin {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #6c757d;
+        }
+        
+        .sentence-english {
+            font-size: 14px;
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        .highlight {
+            color: #fd7e14;
+            font-weight: bold;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: white;
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+        
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #fd7e14;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            font-size: 24px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        
+        .back-to-top:hover {
+            background: #e67700;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .structure-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .connector {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+            
+            .example-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .example-card {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            header {
+                padding: 40px 0;
+            }
+            
+            header h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="nav-bar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">汉语概念可视化学习门户</a>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-btn">返回首页</a>
+                <a href="#structure" class="nav-btn">语法结构</a>
+                <a href="#sentences" class="nav-btn">句子示例</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页面标题 -->
+    <header>
+        <h1>以便 (yǐ biàn)</h1>
+        <p>表示目的，为了使某事更容易或更可能发生</p>
+    </header>
+    
+    <div class="container">
+        <div class="visualization">
+            <!-- 语法结构可视化 -->
+            <div id="structure" class="grammar-structure">
+                <h2 style="margin-bottom: 30px; color: #343a40;">语法结构可视化</h2>
+                
+                <div class="structure-diagram">
+                    <div class="sentence-structure">
+                        <div class="structure-row">
+                            <div class="structure-block subject-block">主语</div>
+                            <div class="connector">+</div>
+                            <div class="structure-block verb-block">动词短语</div>
+                            <div class="connector">+</div>
+                            <div class="structure-block purpose-block">以便</div>
+                            <div class="connector">+</div>
+                            <div class="structure-block object-block">目的短语</div>
+                        </div>
+                        
+                        <div class="structure-arrow">
+                            <div class="arrow-down"></div>
+                        </div>
+                        
+                        <div class="structure-row">
+                            <div class="structure-block subject-block">我</div>
+                            <div class="connector">+</div>
+                            <div class="structure-block verb-block">提前到达</div>
+                            <div class="connector">+</div>
+                            <div class="structure-block purpose-block">以便</div>
+                            <div class="connector">+</div>
+                            <div class="structure-block object-block">有充足的准备时间</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="purpose-animation">
+                    <div class="grammar-label">目的关系</div>
+                    <div class="path-line"></div>
+                    <div class="purpose-path">
+                        <div class="start-point">🏃</div>
+                        <div class="end-point">🎯</div>
+                    </div>
+                    <div class="moving-object">👉</div>
+                </div>
+                
+                <p style="color: #6c757d; margin-top: 20px;">
+                    "以便"连接两个句子部分，前面是行动，后面是这个行动的目的。
+                    它表示"为了"或"以便于"的意思，强调为了使某事更容易或更可能发生而采取的行动。
+                </p>
+            </div>
+            
+            <!-- 例子卡片 -->
+            <h2 id="examples" style="margin-top: 50px; margin-bottom: 30px; color: #343a40;">"以便"的常见用法</h2>
+            
+            <div class="example-cards">
+                <div class="example-card">
+                    <div class="card-header">学习目的</div>
+                    <div class="card-body">
+                        <div class="card-title">
+                            <span class="card-icon">📚</span>学习准备
+                        </div>
+                        <div class="card-text">
+                            他每天复习汉语，<span class="highlight">以便</span>在考试中取得好成绩。
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="card-header">工作目的</div>
+                    <div class="card-body">
+                        <div class="card-title">
+                            <span class="card-icon">💼</span>工作效率
+                        </div>
+                        <div class="card-text">
+                            我们提前完成了项目，<span class="highlight">以便</span>有更多时间进行测试。
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="card-header">生活目的</div>
+                    <div class="card-body">
+                        <div class="card-title">
+                            <span class="card-icon">🏠</span>生活安排
+                        </div>
+                        <div class="card-text">
+                            她早起一小时，<span class="highlight">以便</span>有足够的时间准备早餐。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 句子构建器 -->
+            <div class="sentence-builder">
+                <div class="builder-title">句子构建器</div>
+                
+                <p style="margin-bottom: 20px; color: #6c757d;">选择不同的动作和目的，构建包含"以便"的句子</p>
+                
+                <div class="builder-options">
+                    <button class="builder-option" onclick="updateSentence(1)">提前出发</button>
+                    <button class="builder-option" onclick="updateSentence(2)">多做练习</button>
+                    <button class="builder-option" onclick="updateSentence(3)">保存文件</button>
+                    <button class="builder-option" onclick="updateSentence(4)">记笔记</button>
+                </div>
+                
+                <div class="builder-display">
+                    <div class="builder-sentence" id="builder-sentence">我提前出发，<span class="highlight">以便</span>避免交通拥堵。</div>
+                    <div class="builder-pinyin" id="builder-pinyin">Wǒ tíqián chūfā, <span class="highlight">yǐbiàn</span> bìmiǎn jiāotōng yōngdǔ.</div>
+                    <div class="builder-english" id="builder-english">I left early <span class="highlight">in order to</span> avoid traffic congestion.</div>
+                </div>
+            </div>
+            
+            <!-- 句子示例 -->
+            <div id="sentences" class="sentence-examples">
+                <div class="sentence-title">使用"以便"的句子例子</div>
+                
+                <div class="sentence">
+                    <div class="sentence-chinese">我们应该保存好文件，<span class="highlight">以便</span>日后查阅。</div>
+                    <div class="sentence-pinyin">Wǒmen yīnggāi bǎocún hǎo wénjiàn, <span class="highlight">yǐbiàn</span> rìhòu cháyuè.</div>
+                    <div class="sentence-english">We should save the files well <span class="highlight">so that</span> we can refer to them in the future.</div>
+                </div>
+                
+                <div class="sentence">
+                    <div class="sentence-chinese">请提前通知我，<span class="highlight">以便</span>我做好准备。</div>
+                    <div class="sentence-pinyin">Qǐng tíqián tōngzhī wǒ, <span class="highlight">yǐbiàn</span> wǒ zuò hǎo zhǔnbèi.</div>
+                    <div class="sentence-english">Please notify me in advance <span class="highlight">so that</span> I can be prepared.</div>
+                </div>
+                
+                <div class="sentence">
+                    <div class="sentence-chinese">他学习中文，<span class="highlight">以便</span>更好地了解中国文化。</div>
+                    <div class="sentence-pinyin">Tā xuéxí Zhōngwén, <span class="highlight">yǐbiàn</span> gèng hǎo de liǎojiě Zhōngguó wénhuà.</div>
+                    <div class="sentence-english">He studies Chinese <span class="highlight">in order to</span> better understand Chinese culture.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <h3 class="footer-title">汉语概念可视化学习门户</h3>
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">返回首页</a>
+                <a href="#structure" class="footer-link">语法结构</a>
+                <a href="#sentences" class="footer-link">句子示例</a>
+            </div>
+            <div class="copyright">© 2023 汉语概念可视化学习门户. 保留所有权利.</div>
+        </div>
+    </footer>
+    
+    <!-- 返回顶部按钮 -->
+    <a href="#" class="back-to-top" title="返回顶部">↑</a>
+    
+    <script>
+        // 句子构建器功能
+        function updateSentence(id) {
+            let sentence, pinyin, english;
+            
+            switch(id) {
+                case 1:
+                    sentence = '我提前出发，<span class="highlight">以便</span>避免交通拥堵。';
+                    pinyin = 'Wǒ tíqián chūfā, <span class="highlight">yǐbiàn</span> bìmiǎn jiāotōng yōngdǔ.';
+                    english = 'I left early <span class="highlight">in order to</span> avoid traffic congestion.';
+                    break;
+                case 2:
+                    sentence = '学生多做练习，<span class="highlight">以便</span>掌握这个语法点。';
+                    pinyin = 'Xuéshēng duō zuò liànxí, <span class="highlight">yǐbiàn</span> zhǎngwò zhège yǔfǎ diǎn.';
+                    english = 'Students do more exercises <span class="highlight">so that</span> they can master this grammar point.';
+                    break;
+                case 3:
+                    sentence = '我们应该保存好文件，<span class="highlight">以便</span>日后查阅。';
+                    pinyin = 'Wǒmen yīnggāi bǎocún hǎo wénjiàn, <span class="highlight">yǐbiàn</span> rìhòu cháyuè.';
+                    english = 'We should save the files well <span class="highlight">so that</span> we can refer to them in the future.';
+                    break;
+                case 4:
+                    sentence = '上课时记笔记，<span class="highlight">以便</span>复习时参考。';
+                    pinyin = 'Shàng kè shí jì bǐjì, <span class="highlight">yǐbiàn</span> fùxí shí cānkǎo.';
+                    english = 'Take notes during class <span class="highlight">in order to</span> refer to them when reviewing.';
+                    break;
+                default:
+                    sentence = '请选择一个例句。';
+                    pinyin = 'Qǐng xuǎnzé yí gè lìjù.';
+                    english = 'Please select an example sentence.';
+            }
+            
+            document.getElementById('builder-sentence').innerHTML = sentence;
+            document.getElementById('builder-pinyin').innerHTML = pinyin;
+            document.getElementById('builder-english').innerHTML = english;
+        }
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // 返回顶部按钮显示/隐藏
+        window.onscroll = function() {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                document.querySelector('.back-to-top').style.display = "flex";
+            } else {
+                document.querySelector('.back-to-top').style.display = "none";
+            }
+        };
+        
+        // 初始化
+        window.onload = function() {
+            // 初始化隐藏返回顶部按钮
+            document.querySelector('.back-to-top').style.display = "none";
+        };
+    </script>
+</body>
+</html> 

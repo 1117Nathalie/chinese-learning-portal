@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSK4 汉语学习：心中有数 vs 心里没数</title>
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            width: 800px;
+            max-width: 100%;
+            text-align: center;
+            padding: 20px;
+        }
+        .title {
+            font-size: 36px;
+            color: #343a40;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        .hsk-level {
+            background-color: #28a745;
+            color: white;
+            font-size: 14px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #6c757d;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* 主要可视化部分 */
+        .visualization {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        
+        /* 心中有数VS心里没数对比 */
+        .comparison {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+            flex-wrap: nowrap;
+        }
+        
+        .state {
+            width: 45%;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .state:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .state-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .state-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #343a40;
+        }
+        
+        .state-description {
+            text-align: left;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        
+        .pinyin {
+            color: #007bff;
+            font-style: italic;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .state-indicators {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .indicator {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 14px;
+            color: #495057;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .indicator:hover .indicator-tooltip {
+            display: block;
+        }
+        
+        .indicator-tooltip {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #343a40;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            margin-bottom: 5px;
+            z-index: 100;
+        }
+        
+        .has-certainty {
+            border-top: 5px solid #28a745;
+        }
+        
+        .no-certainty {
+            border-top: 5px solid #dc3545;
+        }
+        
+        /* 交互式练习部分 */
+        .interactive-practice {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin: 40px 0;
+        }
+        
+        .practice-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+        
+        .scenario-question {
+            text-align: left;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .question-text {
+            font-size: 16px;
+            color: #343a40;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #e9ecef;
+        }
+        
+        .option.selected {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        
+        .option.correct {
+            background-color: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+        
+        .option.incorrect {
+            background-color: #dc3545;
+            color: white;
+            border-color: #dc3545;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            display: none;
+        }
+        
+        .feedback.correct {
+            display: block;
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .feedback.incorrect {
+            display: block;
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .next-question-btn {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+        
+        /* 情景对比 */
+        .scenario-comparison {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin: 40px 0;
+        }
+        
+        .scenario-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #343a40;
+        }
+        
+        .scenario-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .scenario-tab {
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .scenario-tab.active {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .scenario-content {
+            text-align: left;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            min-height: 150px;
+        }
+        
+        .scenario-person {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .person-icon {
+            font-size: 40px;
+            margin-right: 15px;
+        }
+        
+        .person-status {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .certainty-status {
+            color: #28a745;
+        }
+        
+        .uncertainty-status {
+            color: #dc3545;
+        }
+        
+        .scenario-description {
+            color: #495057;
+            line-height: 1.6;
+        }
+        
+        /* 例句部分 */
+        .example-sentences {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin: 40px 0;
+            text-align: left;
+        }
+        
+        .sentences-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #343a40;
+            text-align: center;
+        }
+        
+        .sentence {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .sentence:hover {
+            background-color: #e9ecef;
+        }
+        
+        .sentence-chinese {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #343a40;
+        }
+        
+        .sentence-pinyin {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #6c757d;
+        }
+        
+        .sentence-english {
+            font-size: 14px;
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        .highlight {
+            color: #007bff;
+            font-weight: bold;
+        }
+        
+        /* 相关成语 */
+        .similar-idioms {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .idiom-chip {
+            background-color: #e9ecef;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #495057;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .idiom-chip:hover {
+            background-color: #007bff;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* 响应式调整 */
+        /* 信心度量表 */
+        .certainty-meter {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin: 40px 0;
+        }
+        
+        .meter-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+        
+        .meter-container {
+            background-color: #f8f9fa;
+            height: 50px;
+            border-radius: 25px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .meter-fill {
+            position: absolute;
+            height: 100%;
+            width: 80%;
+            background: linear-gradient(90deg, #ffea00, #28a745);
+            border-radius: 25px;
+            transition: width 1.5s;
+        }
+        
+        .meter-label {
+            position: absolute;
+            top: 50%;
+            left: 80%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        
+        .meter-markers {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .comparison {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            .state {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">心中有数 (xīn zhōng yǒu shù)</h1>
+        <p class="subtitle">心里有把握，对情况了解清楚，胸有成竹</p>
+        
+        <div class="visualization">
+            <!-- 心中有数VS心里没数对比 -->
+            <div class="comparison">
+                <div class="state has-certainty">
+                    <div class="state-icon">😌</div>
+                    <div class="state-title">心中有数</div>
+                    <div class="pinyin">xīn zhōng yǒu shù</div>
+                    <div class="state-description">
+                        <p>对事情有清晰的理解和把握，知道如何处理，有信心能够应对各种可能的情况。</p>
+                    </div>
+                    <div class="state-indicators">
+                        <div class="indicator">
+                            有准备
+                            <span class="indicator-tooltip">yǒu zhǔnbèi</span>
+                        </div>
+                        <div class="indicator">
+                            有把握
+                            <span class="indicator-tooltip">yǒu bǎwò</span>
+                        </div>
+                        <div class="indicator">
+                            有信心
+                            <span class="indicator-tooltip">yǒu xìnxīn</span>
+                        </div>
+                        <div class="indicator">
+                            情况明了
+                            <span class="indicator-tooltip">qíngkuàng míngliǎo</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="state no-certainty">
+                    <div class="state-icon">😟</div>
+                    <div class="state-title">心里没数</div>
+                    <div class="pinyin">xīn lǐ méi shù</div>
+                    <div class="state-description">
+                        <p>对情况不清楚，没有把握，不知道如何处理，对结果感到不确定和担忧。</p>
+                    </div>
+                    <div class="state-indicators">
+                        <div class="indicator">
+                            无准备
+                            <span class="indicator-tooltip">wú zhǔnbèi</span>
+                        </div>
+                        <div class="indicator">
+                            没把握
+                            <span class="indicator-tooltip">méi bǎwò</span>
+                        </div>
+                        <div class="indicator">
+                            不自信
+                            <span class="indicator-tooltip">bù zìxìn</span>
+                        </div>
+                        <div class="indicator">
+                            情况模糊
+                            <span class="indicator-tooltip">qíngkuàng móhú</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 信心度量表 -->
+            <div class="certainty-meter">
+                <div class="meter-title">心中有数程度表</div>
+                <div class="meter-container">
+                    <div class="meter-fill" id="certaintyMeter"></div>
+                    <div class="meter-label" id="certaintyLabel">80%</div>
+                </div>
+                <div class="meter-markers">
+                    <span>完全不确定</span>
+                    <span>有些把握</span>
+                    <span>心中有数</span>
+                    <span>胸有成竹</span>
+                </div>
+                
+                <button onclick="changeCertainty()" style="margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    调整信心度
+                </button>
+            </div>
+            
+            <!-- 交互式练习 -->
+            <div class="interactive-practice">
+                <div class="practice-title">练习：选择正确的表达</div>
+                
+                <div class="scenario-question" id="question-container">
+                    <div class="question-text">小明明天要参加重要考试，他复习了所有内容，做了很多练习题。面对考试，小明：</div>
+                    
+                    <div class="options">
+                        <div class="option" onclick="selectOption(1)">心中有数</div>
+                        <div class="option" onclick="selectOption(2)">心里没数</div>
+                    </div>
+                    
+                    <div class="feedback" id="feedback"></div>
+                    <button class="next-question-btn" id="next-question-btn" onclick="nextQuestion()">下一题</button>
+                </div>
+            </div>
+            
+            <!-- 情景对比 -->
+            <div class="scenario-comparison">
+                <div class="scenario-title">不同情景中的对比</div>
+                
+                <div class="scenario-tabs">
+                    <div class="scenario-tab active" id="tab1" onclick="showScenario(1)">工作场景</div>
+                    <div class="scenario-tab" id="tab2" onclick="showScenario(2)">学习场景</div>
+                    <div class="scenario-tab" id="tab3" onclick="showScenario(3)">生活场景</div>
+                </div>
+                
+                <div class="scenario-content" id="scenarioContent">
+                    <div class="scenario-person">
+                        <div class="person-icon">👨‍💼</div>
+                        <div class="person-status">李经理 - <span class="certainty-status">心中有数</span></div>
+                    </div>
+                    <div class="scenario-description">
+                        李经理需要在明天的会议上做重要演讲。他已经准备了充分的材料，练习了多次，了解可能会被问到的问题。面对明天的演讲，他<span class="highlight">心中有数</span>，表现得很自信。
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 例句部分 -->
+            <div class="example-sentences">
+                <div class="sentences-title">例句</div>
+                
+                <div class="sentence">
+                    <div class="sentence-chinese">做事前要<span class="highlight">心中有数</span>。</div>
+                    <div class="sentence-pinyin">Zuò shì qián yào <span class="highlight">xīn zhōng yǒu shù</span>.</div>
+                    <div class="sentence-english">You should be clear about what you are doing before you start.</div>
+                </div>
+                
+                <div class="sentence">
+                    <div class="sentence-chinese">别担心，我对这个项目<span class="highlight">心中有数</span>。</div>
+                    <div class="sentence-pinyin">Bié dān xīn, wǒ duì zhège xiàngmù <span class="highlight">xīn zhōng yǒu shù</span>.</div>
+                    <div class="sentence-english">Don't worry, I have a good grasp of this project.</div>
+                </div>
+                
+                <div class="sentence">
+                    <div class="sentence-chinese">他对考试内容<span class="highlight">心里没数</span>，所以很紧张。</div>
+                    <div class="sentence-pinyin">Tā duì kǎoshì nèiróng <span class="highlight">xīn lǐ méi shù</span>, suǒyǐ hěn jǐnzhāng.</div>
+                    <div class="sentence-english">He is nervous because he is uncertain about the exam content.</div>
+                </div>
+                
+                <div class="sentences-title" style="margin-top: 40px">相关词语</div>
+                <div class="similar-idioms">
+                    <div class="idiom-chip" onclick="showIdiomMeaning('胸有成竹')">胸有成竹</div>
+                    <div class="idiom-chip" onclick="showIdiomMeaning('把握不大')">把握不大</div>
+                    <div class="idiom-chip" onclick="showIdiomMeaning('成竹在胸')">成竹在胸</div>
+                    <div class="idiom-chip" onclick="showIdiomMeaning('没有把握')">没有把握</div>
+                    <div class="idiom-chip" onclick="showIdiomMeaning('心里有底')">心里有底</div>
+                    <div class="idiom-chip" onclick="showIdiomMeaning('没谱')">没谱</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 显示成语含义
+        function showIdiomMeaning(idiom) {
+            const meanings = {
+                '胸有成竹': '做事前已经有了充分的准备和把握。xiōng yǒu chéng zhú',
+                '把握不大': '没有足够的信心确定某事能否成功。bǎ wò bù dà',
+                '成竹在胸': '比喻事先已经有了主意或方案。chéng zhú zài xiōng',
+                '没有把握': '不确定，没有信心。méi yǒu bǎ wò',
+                '心里有底': '心里有了解，有把握。xīn lǐ yǒu dǐ',
+                '没谱': '没有把握，不确定。méi pǔ'
+            };
+            
+            alert(`${idiom}：${meanings[idiom]}`);
+        }
+        
+        // 练习题部分
+        const questions = [
+            {
+                text: "小明明天要参加重要考试，他复习了所有内容，做了很多练习题。面对考试，小明：",
+                correctAnswer: 1,
+                feedback: {
+                    correct: "正确！小明充分准备了考试，所以他心中有数。",
+                    incorrect: "不正确。小明已经充分准备了考试，所以他应该是'心中有数'而不是'心里没数'。"
+                }
+            },
+            {
+                text: "李华第一次去北京，不知道怎么坐地铁，找不到路。他：",
+                correctAnswer: 2,
+                feedback: {
+                    correct: "正确！李华不了解情况，所以心里没数。",
+                    incorrect: "不正确。李华不了解北京的情况，所以他应该是'心里没数'而不是'心中有数'。"
+                }
+            },
+            {
+                text: "王医生已经做了100次这种手术，技术很熟练。做手术时，她：",
+                correctAnswer: 1,
+                feedback: {
+                    correct: "正确！王医生经验丰富，所以心中有数。",
+                    incorrect: "不正确。王医生经验丰富，所以她应该是'心中有数'而不是'心里没数'。"
+                }
+            }
+        ];
+        
+        let currentQuestion = 0;
+        
+        function selectOption(option) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+            
+            options[option - 1].classList.add('selected');
+            
+            const feedback = document.getElementById('feedback');
+            const question = questions[currentQuestion];
+            
+            if (option === question.correctAnswer) {
+                options[option - 1].classList.add('correct');
+                feedback.textContent = question.feedback.correct;
+                feedback.className = 'feedback correct';
+            } else {
+                options[option - 1].classList.add('incorrect');
+                options[question.correctAnswer - 1].classList.add('correct');
+                feedback.textContent = question.feedback.incorrect;
+                feedback.className = 'feedback incorrect';
+            }
+            
+            document.getElementById('next-question-btn').style.display = 'block';
+        }
+        
+        function nextQuestion() {
+            currentQuestion = (currentQuestion + 1) % questions.length;
+            updateQuestion();
+        }
+        
+        function updateQuestion() {
+            const questionContainer = document.getElementById('question-container');
+            const question = questions[currentQuestion];
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+            
+            document.querySelector('.question-text').textContent = question.text;
+            document.getElementById('feedback').className = 'feedback';
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('next-question-btn').style.display = 'none';
+        }
+        
+        // 情景切换
+        function showScenario(id) {
+            // 更新标签状态
+            document.querySelectorAll('.scenario-tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById('tab' + id).classList.add('active');
+            
+            // 更新内容
+            const contentEl = document.getElementById('scenarioContent');
+            
+            let personIcon, personStatus, description;
+            
+            switch(id) {
+                case 1: // 工作场景
+                    personIcon = '👨‍💼';
+                    personStatus = '李经理 - <span class="certainty-status">心中有数</span>';
+                    description = '李经理需要在明天的会议上做重要演讲。他已经准备了充分的材料，练习了多次，了解可能会被问到的问题。面对明天的演讲，他<span class="highlight">心中有数</span>，表现得很自信。';
+                    break;
+                case 2: // 学习场景
+                    personIcon = '👩‍🎓';
+                    personStatus = '小王 - <span class="uncertainty-status">心里没数</span>';
+                    description = '小王明天有重要考试。她没有充分复习，也不知道考试的重点是什么。对于明天的考试，她<span class="highlight">心里没数</span>，感到很焦虑。';
+                    break;
+                case 3: // 生活场景
+                    personIcon = '👨‍🍳';
+                    personStatus = '张师傅 - <span class="certainty-status">心中有数</span>';
+                    description = '张师傅是一位经验丰富的厨师。当他接到一个复杂的订单时，他知道需要哪些食材，如何搭配调料，以及烹饪时间的控制。整个过程他都<span class="highlight">心中有数</span>，从容不迫。';
+                    break;
+                default:
+                    personIcon = '👨‍💼';
+                    personStatus = '李经理 - <span class="certainty-status">心中有数</span>';
+                    description = '李经理需要在明天的会议上做重要演讲。他已经准备了充分的材料，练习了多次，了解可能会被问到的问题。面对明天的演讲，他<span class="highlight">心中有数</span>，表现得很自信。';
+            }
+            
+            contentEl.innerHTML = `
+                <div class="scenario-person">
+                    <div class="person-icon">${personIcon}</div>
+                    <div class="person-status">${personStatus}</div>
+                </div>
+                <div class="scenario-description">
+                    ${description}
+                </div>
+            `;
+        }
+        
+        // 信心度量表动画
+        let certaintyValue = 80;
+        function changeCertainty() {
+            certaintyValue = certaintyValue === 80 ? 40 : certaintyValue === 40 ? 95 : 80;
+            document.getElementById('certaintyMeter').style.width = certaintyValue + '%';
+            document.getElementById('certaintyLabel').textContent = certaintyValue + '%';
+            document.getElementById('certaintyLabel').style.left = certaintyValue + '%';
+        }
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 确保情景切换tab正常工作
+            document.getElementById('tab1').addEventListener('click', function() { showScenario(1); });
+            document.getElementById('tab2').addEventListener('click', function() { showScenario(2); });
+            document.getElementById('tab3').addEventListener('click', function() { showScenario(3); });
+        });
+    </script>
+</body>
+</html>

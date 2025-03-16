@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>现象概念可视化</title>
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #343a40;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .title {
+            font-size: 42px;
+            color: #343a40;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .pinyin {
+            font-size: 20px;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        
+        .definition {
+            font-size: 22px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            text-align: center;
+            line-height: 1.5;
+        }
+        
+        /* 现象分类区域 */
+        .phenomenon-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .category-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 22px;
+            text-align: center;
+        }
+        
+        .natural-header {
+            background: linear-gradient(135deg, #20c997, #0dcaf0);
+        }
+        
+        .social-header {
+            background: linear-gradient(135deg, #6f42c1, #6610f2);
+        }
+        
+        .psychological-header {
+            background: linear-gradient(135deg, #fd7e14, #ffc107);
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .phenomenon-examples {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .phenomenon-example {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .phenomenon-example:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .example-icon {
+            font-size: 28px;
+            margin-right: 15px;
+            min-width: 28px;
+            text-align: center;
+        }
+        
+        .example-text {
+            font-size: 16px;
+            color: #495057;
+        }
+        
+        /* 观察区域 */
+        .observation-section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 50px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            color: #343a40;
+        }
+        
+        .section-icon {
+            font-size: 28px;
+            margin-right: 10px;
+        }
+        
+        .observation-process {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .process-step {
+            width: 30%;
+            min-width: 200px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .step-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .step-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #343a40;
+        }
+        
+        .step-description {
+            font-size: 14px;
+            color: #6c757d;
+            line-height: 1.5;
+        }
+        
+        /* 动画现象 */
+        .animated-phenomenon {
+            background-color: #6f42c1;
+            height: 200px;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 40px 0;
+        }
+        
+        .rain-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .raindrop {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            width: 2px;
+            top: -20px;
+            animation: rainfall linear infinite;
+        }
+        
+        @keyframes rainfall {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(220px); }
+        }
+        
+        /* 语言示例 */
+        .language-examples {
+            margin: 50px 0;
+        }
+        
+        .example-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-chinese {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .example-pinyin {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        
+        .example-english {
+            font-size: 14px;
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        .highlight {
+            color: #6f42c1;
+            font-weight: bold;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .phenomenon-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-step {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="title">现象</h1>
+            <div class="pinyin">xiàn xiàng</div>
+            <div class="definition">客观存在的事物表现或情况</div>
+        </header>
+        
+        <!-- 现象分类 -->
+        <div class="phenomenon-categories">
+            <div class="category-card">
+                <div class="card-header natural-header">自然现象</div>
+                <div class="card-body">
+                    <ul class="phenomenon-examples">
+                        <li class="phenomenon-example">
+                            <div class="example-icon">🌧️</div>
+                            <div class="example-text">下雨是一种常见的自然现象。</div>
+                        </li>
+                        <li class="phenomenon-example">
+                            <div class="example-icon">🌈</div>
+                            <div class="example-text">彩虹是光的折射和反射现象。</div>
+                        </li>
+                        <li class="phenomenon-example">
+                            <div class="example-icon">🌪️</div>
+                            <div class="example-text">龙卷风是一种极端天气现象。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="card-header social-header">社会现象</div>
+                <div class="card-body">
+                    <ul class="phenomenon-examples">
+                        <li class="phenomenon-example">
+                            <div class="example-icon">📱</div>
+                            <div class="example-text">低头族是现代社会的普遍现象。</div>
+                        </li>
+                        <li class="phenomenon-example">
+                            <div class="example-icon">🏙️</div>
+                            <div class="example-text">城市化是全球性的社会现象。</div>
+                        </li>
+                        <li class="phenomenon-example">
+                            <div class="example-icon">🧓</div>
+                            <div class="example-text">人口老龄化是许多国家面临的现象。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="card-header psychological-header">心理现象</div>
+                <div class="card-body">
+                    <ul class="phenomenon-examples">
+                        <li class="phenomenon-example">
+                            <div class="example-icon">😴</div>
+                            <div class="example-text">假期结束后工作适应不良是常见现象。</div>
+                        </li>
+                        <li class="phenomenon-example">
+                            <div class="example-icon">📚</div>
+                            <div class="example-text">考前焦虑是学生中普遍存在的现象。</div>
+                        </li>
+                        <li class="phenomenon-example">
+                            <div class="example-icon">🤔</div>
+                            <div class="example-text">选择困难是现代人常见的心理现象。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 观察现象的过程 -->
+        <div class="observation-section">
+            <h2 class="section-title">
+                <span class="section-icon">🔍</span>观察与研究现象的过程
+            </h2>
+            
+            <div class="observation-process">
+                <div class="process-step">
+                    <div class="step-icon">👁️</div>
+                    <div class="step-title">观察</div>
+                    <div class="step-description">通过感官或工具观察现象，收集数据和信息。</div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-icon">📊</div>
+                    <div class="step-title">分析</div>
+                    <div class="step-description">对收集的数据进行分析，寻找规律和模式。</div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-icon">🧠</div>
+                    <div class="step-title">解释</div>
+                    <div class="step-description">解释现象产生的原因，理解其本质和规律。</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 动画展示雨滴现象 -->
+        <h2 class="section-title">
+            <span class="section-icon">✨</span>可视化示例：下雨现象
+        </h2>
+        
+        <div class="animated-phenomenon">
+            <div class="rain-container" id="rainContainer"></div>
+        </div>
+        
+        <!-- 语言示例 -->
+        <div class="language-examples">
+            <h2 class="section-title">
+                <span class="section-icon">📝</span>"现象"在句子中的用法
+            </h2>
+            
+            <div class="example-card">
+                <div class="example-chinese">假期结束后工作适应不良是常见<span class="highlight">现象</span>。</div>
+                <div class="example-pinyin">Jiàqī jiéshù hòu gōngzuò shìyìng bùliáng shì chángjiàn <span class="highlight">xiànxiàng</span>.</div>
+                <div class="example-english">Difficulty adapting to work after holidays is a common phenomenon.</div>
+            </div>
+            
+            <div class="example-card">
+                <div class="example-chinese">科学家正在研究这种自然<span class="highlight">现象</span>。</div>
+                <div class="example-pinyin">Kēxuéjiā zhèngzài yánjiū zhè zhǒng zìrán <span class="highlight">xiànxiàng</span>.</div>
+                <div class="example-english">Scientists are studying this natural phenomenon.</div>
+            </div>
+            
+            <div class="example-card">
+                <div class="example-chinese">社交媒体成瘾是当代社会<span class="highlight">现象</span>。</div>
+                <div class="example-pinyin">Shèjiāo méitǐ chéng yǐn shì dāngdài shèhuì <span class="highlight">xiànxiàng</span>.</div>
+                <div class="example-english">Social media addiction is a contemporary social phenomenon.</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 创建雨滴动画
+        function createRaindrops() {
+            const rainContainer = document.getElementById('rainContainer');
+            const containerWidth = rainContainer.offsetWidth;
+            
+            // 创建40个雨滴
+            for (let i = 0; i < 40; i++) {
+                const raindrop = document.createElement('div');
+                raindrop.className = 'raindrop';
+                
+                // 随机位置和高度
+                const left = Math.floor(Math.random() * containerWidth);
+                const height = Math.floor(Math.random() * 10) + 10; // 10-20px高度
+                const delay = Math.random() * 2; // 0-2秒延迟
+                const duration = Math.random() * 1 + 1; // 1-2秒下落时间
+                
+                raindrop.style.left = `${left}px`;
+                raindrop.style.height = `${height}px`;
+                raindrop.style.animationDelay = `${delay}s`;
+                raindrop.style.animationDuration = `${duration}s`;
+                
+                rainContainer.appendChild(raindrop);
+            }
+        }
+        
+        // 页面加载完成后创建雨滴
+        window.addEventListener('load', createRaindrops);
+    </script>
+</body>
+</html>

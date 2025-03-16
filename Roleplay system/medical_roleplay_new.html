@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医生-患者角色扮演练习 - 黄金假日</title>
+    <link rel="stylesheet" href="medical_roleplay_updated.css">
+</head>
+<body>
+    <div class="header">
+        <h1>医生-患者角色扮演练习</h1>
+        <p>《黄金假日》单元 - 假期综合征</p>
+    </div>
+    
+    <div class="container">
+        <div class="reference-section">
+            <h2>词汇与语法参考</h2>
+            
+            <h3>动词类</h3>
+            <div class="vocab-list">
+                <p><strong>宅</strong> (zhái): 待在家里</p>
+                <p><strong>烦躁</strong> (fánzào): 焦躁不安</p>
+                <p><strong>调整</strong> (tiáozhěng): 调节，改变</p>
+                <p><strong>过渡</strong> (guòdù): 从一种状态转向另一种状态</p>
+                <p><strong>实现</strong> (shíxiàn): 使变为现实</p>
+                <p><strong>转换</strong> (zhuǎnhuàn): 改变，转变</p>
+                <p><strong>利用</strong> (lìyòng): 使用</p>
+                <p><strong>沉浸</strong> (chénjìn): 完全投入</p>
+                <p><strong>抽</strong> (chōu): 挤出（时间）</p>
+                <p><strong>消化</strong> (xiāohuà): 分解，理解</p>
+                <p><strong>促进</strong> (cùjìn): 使加快</p>
+            </div>
+            
+            <h3>名词类</h3>
+            <div class="vocab-list">
+                <p><strong>适应</strong> (shìyìng): 习惯于新环境</p>
+                <p><strong>综合</strong> (zònghé): 把分散的东西合起来</p>
+                <p><strong>恐惧</strong> (kǒngjù): 害怕</p>
+                <p><strong>文件</strong> (wénjiàn): 公文，文档</p>
+                <p><strong>现象</strong> (xiànxiàng): 事物表现出来的情况</p>
+                <p><strong>心中有数</strong> (xīn zhōng yǒu shù): 心里有把握</p>
+                <p><strong>昏天黑地</strong> (hūn tiān hēi dì): 形容头晕眼花</p>
+                <p><strong>体育</strong> (tǐyù): 运动</p>
+                <p><strong>家务</strong> (jiāwù): 家里的日常事务</p>
+                <p><strong>腹</strong> (fù): 肚子</p>
+                <p><strong>不良</strong> (bùliáng): 不好的</p>
+            </div>
+            
+            <h3>形容词/副词类</h3>
+            <div class="vocab-list">
+                <p><strong>通常</strong> (tōngcháng): 一般</p>
+                <p><strong>即将</strong> (jíjiāng): 马上</p>
+                <p><strong>有效</strong> (yǒuxiào): 有作用</p>
+                <p><strong>尽情</strong> (jìnqíng): 尽量，不受限制</p>
+                <p><strong>合理</strong> (hélǐ): 符合情理</p>
+                <p><strong>适当</strong> (shìdàng): 恰当</p>
+                <p><strong>清淡</strong> (qīngdàn): 味道不浓</p>
+            </div>
+            
+            <h3>语法点</h3>
+            <div class="grammar-point">
+                <p><strong>通常</strong>: 表示一般，平常</p>
+                <p>例句：但是<strong>通常</strong>节假日过后，有些人会出现一些不适应的状况。</p>
+            </div>
+            <div class="grammar-point">
+                <p><strong>以便</strong>: 表示使下文所述的目的容易实现</p>
+                <p>例句：把自己下一周要做的工作好好安排一下，<strong>以便</strong>做到心中有数。</p>
+            </div>
+            <div class="grammar-point">
+                <p><strong>一连</strong>: 表示同一动作或同一情况连续发生</p>
+                <p>例句：整个假期我除了睡觉就是上网，<strong>一连</strong>玩了七天，每天都玩得昏天黑地。</p>
+            </div>
+            <div class="grammar-point">
+                <p><strong>既然...就...</strong>: 表示在已有条件的基础上提出合理的结论</p>
+                <p>例句：<strong>既然</strong>知道大吃大喝不好，<strong>就</strong>应该改掉这个坏习惯。</p>
+            </div>
+            <div class="grammar-point">
+                <p><strong>把字句</strong>: 把+宾语+动词/形容词(+其他成分)</p>
+                <p>例句：<strong>把</strong>自己下一周要做的工作好好安排一下</p>
+            </div>
+        </div>
+
+        <div class="dialogue-section">
+            <h2>角色扮演对话</h2>
+            
+            <div class="role-selector">
+                <p>选择你的角色：</p>
+                <button id="doctor-role">医生</button>
+                <button id="patient-role">患者</button>
+                <button id="reset-dialogue">重置对话</button>
+            </div>
+            
+            <div class="chat-interface">
+                <div class="dialogue-container" id="dialogue-area">
+                    <!-- 对话内容将在这里动态生成 -->
+                </div>
+                
+                <div class="input-area">
+                    <input type="text" id="user-input" placeholder="输入你的回复..." />
+                    <button id="send-button">发送</button>
+                </div>
+            </div>
+            
+            <div class="response-options" id="response-options">
+                <p>建议回复：</p>
+                <button class="response-option">是的，我<span class="highlighted">一连</span>休了七天假，现在感到很<span class="highlighted">烦躁</span>，无法<span class="highlighted">适应</span>工作节奏。</button>
+                <button class="response-option">医生，我假期结束后总是感觉特别累，<span class="highlighted">昏天黑地</span>地想睡觉。</button>
+            </div>
+            
+            <div class="feedback-section">
+                <h3>练习反馈</h3>
+                <div class="score-display">
+                    已使用生词：<span id="vocab-count">0</span>/10
+                </div>
+                <div class="target-vocab" id="target-vocab">
+                    <div class="vocab-chip">宅</div>
+                    <div class="vocab-chip">烦躁</div>
+                    <div class="vocab-chip">调整</div>
+                    <div class="vocab-chip">过渡</div>
+                    <div class="vocab-chip">沉浸</div>
+                    <div class="vocab-chip">适应</div>
+                    <div class="vocab-chip">昏天黑地</div>
+                    <div class="vocab-chip">心中有数</div>
+                    <div class="vocab-chip">通常</div>
+                    <div class="vocab-chip">有效</div>
+                </div>
+                <div class="grammar-feedback" id="grammar-feedback">
+                    <p>请尝试在对话中使用以下语法：</p>
+                    <ul>
+                        <li><strong>以便</strong>: 用于表达目的</li>
+                        <li><strong>既然...就...</strong>: 表示在条件下的必然结论</li>
+                        <li><strong>把字句</strong>: 用于强调对象的处置</li>
+                        <li><strong>一连</strong>: 表示连续的动作</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 角色扮演对话的脚本
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化变量
+            let currentRole = ''; // 当前角色
+            let vocabUsed = new Set(); // 已使用的生词
+            
+            // 医生的预设回复
+            const doctorResponses = [
+                "您好！请坐。我是王医生。听说您最近休完假回来，感觉有些不适应？<span class=\"highlighted\">通常</span>这种情况是很常见的<span class=\"highlighted\">现象</span>，我们称之为\"假期综合征\"。能具体描述一下您的感受吗？",
+                "我理解您的感受。<span class=\"highlighted\">既然</span>您<span class=\"highlighted\">一连</span>休了七天假，<span class=\"highlighted\">就</span>需要一个<span class=\"highlighted\">合理</span>的<span class=\"highlighted\">过渡</span>期来<span class=\"highlighted\">调整</span>自己的状态。您假期里主要做什么活动呢？是<span class=\"highlighted\">宅</span>在家还是出去旅行了？",
+                "这种情况很常见。长时间<span class=\"highlighted\">沉浸</span>在游戏中会导致生物钟紊乱，造成回到工作状态时的<span class=\"highlighted\">不良</span>反应。<span class=\"highlighted\">通常</span>，当我们的作息时间发生巨大变化后，身体和心理都需要时间来<span class=\"highlighted\">适应</span>。",
+                "我建议您<span class=\"highlighted\">把</span>接下来一周的工作安排好，<span class=\"highlighted\">以便</span>做到<span class=\"highlighted\">心中有数</span>。同时，可以<span class=\"highlighted\">利用</span>一些<span class=\"highlighted\">有效</span>的方法来<span class=\"highlighted\">促进</span>状态恢复。",
+                "首先，要尽快<span class=\"highlighted\">调整</span>作息时间，保证充足的睡眠。其次，<span class=\"highlighted\">适当</span>的<span class=\"highlighted\">体育</span>锻炼可以帮助身体恢复节奏。饮食方面，建议<span class=\"highlighted\">清淡</span>一些，避免<span class=\"highlighted\">消化</span>不良。<span class=\"highlighted\">既然</span>已经回到工作状态，<span class=\"highlighted\">就</span>应该有意识地减少娱乐时间。"
+            ];
+            
+            // 患者的预设回复
+            const patientResponses = [
+                "医生，我最近刚休完假，总感觉<span class=\"highlighted\">烦躁</span>，很难<span class=\"highlighted\">适应</span>工作。每天都想睡觉，无法集中精神。",
+                "我整个假期几乎都在家<span class=\"highlighted\">宅</span>着，<span class=\"highlighted\">沉浸</span>在网络游戏中，甚至<span class=\"highlighted\">昏天黑地</span>地忘了时间。",
+                "没错，现在我每天早上起床都特别困难，在办公室处理<span class=\"highlighted\">文件</span>时注意力不集中，还常常感到<span class=\"highlighted\">恐惧</span>，怕自己完成不了工作。",
+                "真的是这样，我应该怎么<span class=\"highlighted\">调整</span>呢？我想快点<span class=\"highlighted\">实现</span>状态的<span class=\"highlighted\">转换</span>。",
+                "谢谢医生的建议。我会<span class=\"highlighted\">把</span>这些方法记下来，<span class=\"highlighted\">以便</span>每天按计划执行。<span class=\"highlighted\">既然</span>知道了原因，我<span class=\"highlighted\">就</span>要努力改变这种状态了。"
+            ];
+            
+            // 元素引用
+            const dialogueArea = document.getElementById('dialogue-area');
+            const responseOptions = document.getElementById('response-options');
+            const userInput = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            const doctorRoleButton = document.getElementById('doctor-role');
+            const patientRoleButton = document.getElementById('patient-role');
+            const resetButton = document.getElementById('reset-dialogue');
+            const vocabCount = document.getElementById('vocab-count');
+            const targetVocab = document.getElementById('target-vocab');
+            
+            // 选择角色
+            doctorRoleButton.addEventListener('click', function() {
+                startRoleplay('doctor');
+            });
+            
+            patientRoleButton.addEventListener('click', function() {
+                startRoleplay('patient');
+            });
+            
+            // 重置对话
+            resetButton.addEventListener('click', function() {
+                resetRoleplay();
+            });
+            
+            // 发送用户输入
+            sendButton.addEventListener('click', function() {
+                sendUserMessage();
+            });
+            
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendUserMessage();
+                }
+            });
+            
+            // 点击建议回复
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('response-option')) {
+                    userInput.value = e.target.textContent;
+                    sendUserMessage();
+                }
+            });
+            
+            // 开始角色扮演
+            function startRoleplay(role) {
+                currentRole = role;
+                dialogueArea.innerHTML = '';
+                vocabUsed.clear();
+                updateVocabDisplay();
+                
+                if (role === 'doctor') {
+                    // 如果用户选择医生，患者先说话
+                    addMessage('patient', patientResponses[0]);
+                    // 使用智能回复选项而不是预设回复
+                    generateSmartResponseOptions("我感到烦躁和不适应", 'doctor', 1);
+                } else {
+                    // 如果用户选择患者，医生先说话
+                    addMessage('doctor', doctorResponses[0]);
+                    // 使用智能回复选项而不是预设回复
+                    generateSmartResponseOptions("假期综合征症状", 'patient', 1);
+                }
+                
+                doctorRoleButton.disabled = true;
+                patientRoleButton.disabled = true;
+            }
+            
+            // 重置角色扮演
+            function resetRoleplay() {
+                dialogueArea.innerHTML = '';
+                responseOptions.innerHTML = '<p>建议回复：</p>';
+                userInput.value = '';
+                currentRole = '';
+                vocabUsed.clear();
+                updateVocabDisplay();
+                
+                doctorRoleButton.disabled = false;
+                patientRoleButton.disabled = false;
+            }
+            
+            // 添加消息到对话区
+            function addMessage(role, content) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${role}`;
+                messageDiv.innerHTML = content;
+                dialogueArea.appendChild(messageDiv);
+                dialogueArea.scrollTop = dialogueArea.scrollHeight;
+                
+                // 检查使用的生词
+                checkVocabUsage(content);
+            }
+            
+            // 显示回复选项
+            function showResponseOptions(role, round) {
+                responseOptions.innerHTML = '<p>建议回复：</p>';
+                
+                let options = [];
+                if (role === 'doctor') {
+                    if (round < doctorResponses.length) {
+                        options.push(doctorResponses[round]);
+                        if (round + 1 < doctorResponses.length) {
+                            options.push(generateAlternativeResponse('doctor'));
+                        }
+                    }
+                } else {
+                    if (round < patientResponses.length) {
+                        options.push(patientResponses[round]);
+                        if (round + 1 < patientResponses.length) {
+                            options.push(generateAlternativeResponse('patient'));
+                        }
+                    }
+                }
+                
+                options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'response-option';
+                    button.innerHTML = option;
+                    responseOptions.appendChild(button);
+                });
+            }
+            
+            // 生成替代回复
+            function generateAlternativeResponse(role) {
+                const alternatives = {
+                    doctor: [
+                        "您的情况我明白了。这是典型的假期综合征。<span class=\"highlighted\">通常</span>需要3-5天的<span class=\"highlighted\">过渡</span>期。<span class=\"highlighted\">把</span>您的日常习惯<span class=\"highlighted\">调整</span>回来是关键。",
+                        "休息过度反而会让人更疲惫，这是常见的<span class=\"highlighted\">现象</span>。<span class=\"highlighted\">既然</span>已经上班了，<span class=\"highlighted\">就</span>应该<span class=\"highlighted\">尽情</span>投入工作，反而能加速<span class=\"highlighted\">适应</span>。",
+                        "我建议您<span class=\"highlighted\">利用</span>午休时间<span class=\"highlighted\">抽</span>15分钟做些<span class=\"highlighted\">体育</span>运动，<span class=\"highlighted\">以便</span><span class=\"highlighted\">促进</span>血液循环，提高工作效率。"
+                    ],
+                    patient: [
+                        "是的，假期里我<span class=\"highlighted\">一连</span>熬了好几个通宵，现在感觉<span class=\"highlighted\">昏天黑地</span>的，完全无法<span class=\"highlighted\">适应</span>正常作息。",
+                        "我感觉自己需要一个<span class=\"highlighted\">过渡</span>期，但不知道如何<span class=\"highlighted\">调整</span>。工作<span class=\"highlighted\">即将</span>堆积如山，我有点<span class=\"highlighted\">恐惧</span>。",
+                        "我想找到一些<span class=\"highlighted\">有效</span>的方法来<span class=\"highlighted\">促进</span>自己尽快回到状态。您能给我一些建议吗？"
+                    ]
+                };
+                
+                const randomIndex = Math.floor(Math.random() * alternatives[role].length);
+                return alternatives[role][randomIndex];
+            }
+            
+            // 检查使用的生词
+            function checkVocabUsage(content) {
+                const targetWords = [
+                    '宅', '烦躁', '调整', '过渡', '实现', '转换', '利用', '沉浸', '抽', '消化', '促进',
+                    '适应', '综合', '恐惧', '文件', '现象', '心中有数', '昏天黑地', '体育', '家务', '不良',
+                    '通常', '即将', '有效', '尽情', '合理', '适当', '清淡'
+                ];
+                
+                targetWords.forEach(word => {
+                    if (content.includes(word)) {
+                        vocabUsed.add(word);
+                    }
+                });
+                
+                updateVocabDisplay();
+            }
+            
+            // 更新生词显示
+            function updateVocabDisplay() {
+                vocabCount.textContent = vocabUsed.size;
+                
+                // 更新单词芯片
+                const chips = targetVocab.querySelectorAll('.vocab-chip');
+                chips.forEach(chip => {
+                    if (vocabUsed.has(chip.textContent)) {
+                        chip.classList.add('used');
+                    } else {
+                        chip.classList.remove('used');
+                    }
+                });
+            }
+            
+            // AI智能对话功能
+            function generateAIResponse(userInput, role, round) {
+                // 关键词识别
+                const keywords = {
+                    '睡眠': ['作息时间', '睡眠质量', '早睡早起'],
+                    '工作': ['工作压力', '效率', '注意力'],
+                    '饮食': ['清淡饮食', '营养均衡', '消化'],
+                    '运动': ['体育锻炼', '活动', '健身'],
+                    '焦虑': ['烦躁', '恐惧', '压力'],
+                    '游戏': ['沉浸', '网络', '娱乐'],
+                    '调整': ['过渡', '适应', '转换']
+                };
+                
+                // 上下文理解
+                let context = '';
+                let detectedKeywords = [];
+                
+                // 检测用户输入中的关键词
+                for (const [key, values] of Object.entries(keywords)) {
+                    if (userInput.includes(key)) {
+                        detectedKeywords.push(key);
+                        context += key + ' ';
+                    }
+                    
+                    values.forEach(value => {
+                        if (userInput.includes(value)) {
+                            detectedKeywords.push(key);
+                            context += value + ' ';
+                        }
+                    });
+                }
+                
+                // 检查回复是否太短或缺乏详细信息
+                const isTooShort = userInput.length < 10;
+                
+                // 检查回复是否与医疗主题相关
+                const medicalTerms = ['医生', '患者', '症状', '治疗', '药物', '休息', '睡眠', '饮食', '运动', '工作', '压力', '假期', '综合征'];
+                const isRelevant = medicalTerms.some(term => userInput.includes(term)) || detectedKeywords.length > 0;
+                
+                // 如果回复太短或不相关，提供引导性反馈
+                if (isTooShort || !isRelevant) {
+                    if (role === 'doctor') {
+                        // 医生对患者回复不详细或不相关的反馈
+                        const feedbacks = [
+                            `为了能更好地帮助您，我需要了解更多<span class="highlighted">详细</span>情况。能否告诉我更多关于您的<span class="highlighted">症状</span>和<span class="highlighted">生活习惯</span>？`,
+                            `您的描述有些<span class="highlighted">简短</span>，我难以给出<span class="highlighted">有效</span>的建议。能否多分享一些您假期期间和之后的感受？`,
+                            `<span class="highlighted">既然</span>您来就诊，<span class="highlighted">就</span>请尽量详细描述您的情况，<span class="highlighted">以便</span>我能更准确地判断。`,
+                            `我理解表达可能有困难，但请尝试<span class="highlighted">把</span>您的日常生活和不适感受告诉我，这对诊断很重要。`
+                        ];
+                        return feedbacks[Math.floor(Math.random() * feedbacks.length)];
+                    } else {
+                        // 患者对医生回复不详细或不相关的反馈
+                        const feedbacks = [
+                            `医生，我没太明白您的意思。能否用更<span class="highlighted">通常</span>的语言解释一下？我想更好地<span class="highlighted">理解</span>我的情况。`,
+                            `抱歉，医生，您能再详细解释一下吗？我对医学知识了解有限，希望能<span class="highlighted">适应</span>您的建议。`,
+                            `医生，您的建议似乎和我的情况不太相符。我主要是<span class="highlighted">烦躁</span>和无法<span class="highlighted">适应</span>工作节奏，能针对这些问题给我建议吗？`,
+                            `我感到有些<span class="highlighted">困惑</span>，医生。能否给我一些更具体的建议，<span class="highlighted">以便</span>我能在日常生活中实践？`
+                        ];
+                        return feedbacks[Math.floor(Math.random() * feedbacks.length)];
+                    }
+                }
+                
+                // 如果没有检测到关键词，使用默认回复
+                if (detectedKeywords.length === 0) {
+                    if (role === 'doctor') {
+                        return doctorResponses[round] || "我理解您的情况。请继续告诉我更多细节，这样我才能给您更好的建议。";
+                    } else {
+                        return patientResponses[round] || "谢谢医生的建议，我会尝试按照您说的去做。";
+                    }
+                }
+                
+                // 根据检测到的关键词和角色生成智能回复
+                if (role === 'doctor') {
+                    // 医生的智能回复
+                    if (detectedKeywords.includes('睡眠')) {
+                        return `我注意到您提到了睡眠问题。<span class="highlighted">通常</span>，假期后的睡眠紊乱是很常见的<span class="highlighted">现象</span>。我建议您<span class="highlighted">调整</span>作息时间，尽量在固定时间睡觉和起床，<span class="highlighted">以便</span>帮助身体重新建立生物钟。`;
+                    } else if (detectedKeywords.includes('工作')) {
+                        return `关于工作适应的问题，我建议您<span class="highlighted">把</span>工作任务分解成小块，逐步完成，<span class="highlighted">以便</span>减轻压力。<span class="highlighted">既然</span>已经回到工作状态，<span class="highlighted">就</span>需要给自己一些时间来<span class="highlighted">适应</span>。`;
+                    } else if (detectedKeywords.includes('焦虑')) {
+                        return `您的<span class="highlighted">烦躁</span>情绪是可以理解的。这是身体对环境变化的正常反应。<span class="highlighted">利用</span>一些放松技巧，如深呼吸或冥想，可以有效缓解这种状态。`;
+                    } else if (detectedKeywords.includes('游戏')) {
+                        return `长时间<span class="highlighted">沉浸</span>在游戏中会影响正常的生活节奏。建议您<span class="highlighted">适当</span>控制游戏时间，逐渐减少，让身心有一个<span class="highlighted">过渡</span>期。`;
+                    } else if (detectedKeywords.includes('运动')) {
+                        return `<span class="highlighted">适当</span>的<span class="highlighted">体育</span>活动确实能<span class="highlighted">促进</span>身体恢复正常状态。每天<span class="highlighted">抽</span>出30分钟进行有氧运动，对改善睡眠和情绪都有<span class="highlighted">有效</span>帮助。`;
+                    } else if (detectedKeywords.includes('饮食')) {
+                        return `饮食方面，建议保持<span class="highlighted">清淡</span>，避免刺激性食物，这有助于<span class="highlighted">消化</span>和睡眠。多摄入蔬果，保持营养均衡，对身体恢复很有帮助。`;
+                    } else {
+                        return `我理解您的情况。建议您制定一个<span class="highlighted">合理</span>的日程安排，包括工作、休息和娱乐时间，帮助您更好地<span class="highlighted">适应</span>假期后的生活节奏。`;
+                    }
+                } else {
+                    // 患者的智能回复
+                    if (detectedKeywords.includes('睡眠')) {
+                        return `是的医生，我最近睡眠质量很差，感觉<span class="highlighted">昏天黑地</span>的，完全无法<span class="highlighted">适应</span>正常作息。我<span class="highlighted">一连</span>几天都是凌晨才睡，早上起不来。`;
+                    } else if (detectedKeywords.includes('工作')) {
+                        return `工作上的事情让我很<span class="highlighted">恐惧</span>，处理<span class="highlighted">文件</span>时总是注意力不集中，效率很低，我需要一些方法来<span class="highlighted">调整</span>状态。`;
+                    } else if (detectedKeywords.includes('焦虑')) {
+                        return `我确实感到非常<span class="highlighted">烦躁</span>，好像随时会爆发。假期结束后这种感觉更明显了，不知道该如何缓解这种状态。`;
+                    } else if (detectedKeywords.includes('游戏')) {
+                        return `假期里我几乎都在家<span class="highlighted">宅</span>着玩游戏，<span class="highlighted">沉浸</span>在虚拟世界中。现在突然要回到现实，感觉很难<span class="highlighted">转换</span>。`;
+                    } else if (detectedKeywords.includes('运动')) {
+                        return `我平时很少进行<span class="highlighted">体育</span>锻炼，可能这也是问题之一。我应该<span class="highlighted">抽</span>时间运动，但总是提不起精神。`;
+                    } else if (detectedKeywords.includes('饮食')) {
+                        return `假期里饮食确实不规律，经常吃得很油腻，现在感觉<span class="highlighted">消化</span>也不太好。我会尝试吃得<span class="highlighted">清淡</span>一些。`;
+                    } else {
+                        return `谢谢医生的建议。我会<span class="highlighted">把</span>这些方法记下来，<span class="highlighted">以便</span>每天按计划执行。<span class="highlighted">既然</span>知道了原因，我<span class="highlighted">就</span>要努力改变这种状态了。`;
+                    }
+                }
+            }
+            
+            // 生成智能回复选项
+            function generateSmartResponseOptions(lastMessage, role, round) {
+                responseOptions.innerHTML = '<p>建议回复：</p>';
+                
+                let options = [];
+                let optionsSet = new Set(); // 用于检测重复选项
+                
+                // 添加一个预设回复
+                if (role === 'doctor' && round < doctorResponses.length) {
+                    const response = doctorResponses[round];
+                    options.push(response);
+                    optionsSet.add(stripTags(response));
+                } else if (role === 'patient' && round < patientResponses.length) {
+                    const response = patientResponses[round];
+                    options.push(response);
+                    optionsSet.add(stripTags(response));
+                }
+                
+                // 添加基于上下文的智能回复
+                const keywords = ['睡眠', '工作', '焦虑', '游戏', '运动', '饮食', '调整'];
+                // 打乱关键词顺序
+                const shuffledKeywords = [...keywords].sort(() => 0.5 - Math.random());
+                
+                // 尝试添加不重复的回复选项
+                for (const keyword of shuffledKeywords) {
+                    if (options.length >= 3) break; // 最多3个选项
+                    
+                    // 模拟用户输入包含这个关键词，生成回复
+                    const fakeInput = lastMessage + ' ' + keyword;
+                    const response = generateAIResponse(fakeInput, role, round);
+                    const strippedResponse = stripTags(response);
+                    
+                    // 检查是否重复
+                    if (!optionsSet.has(strippedResponse)) {
+                        options.push(response);
+                        optionsSet.add(strippedResponse);
+                    }
+                }
+                
+                // 显示回复选项
+                options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'response-option';
+                    button.innerHTML = option;
+                    responseOptions.appendChild(button);
+                });
+            }
+            
+            // 辅助函数：去除HTML标签，用于比较文本内容
+            function stripTags(html) {
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+                return temp.textContent || temp.innerText || '';
+            }
+            
+            // 添加语法评价功能
+            function evaluateGrammar(text) {
+                const grammarPoints = [
+                    { pattern: /以便/, name: '以便', description: '用于表达目的', correct: true },
+                    { pattern: /既然.*就/, name: '既然...就...', description: '表示在条件下的必然结论', correct: true },
+                    { pattern: /把.*[动形]/, name: '把字句', description: '用于强调对象的处置', correct: true },
+                    { pattern: /一连/, name: '一连', description: '表示连续的动作', correct: true }
+                ];
+                
+                const targetWords = [
+                    '宅', '烦躁', '调整', '过渡', '实现', '转换', '利用', '沉浸', '抽', '消化', '促进',
+                    '适应', '综合', '恐惧', '文件', '现象', '心中有数', '昏天黑地', '体育', '家务', '不良',
+                    '通常', '即将', '有效', '尽情', '合理', '适当', '清淡'
+                ];
+                
+                // 常见语法错误模式
+                const grammarErrors = [
+                    { pattern: /既然.*但是/, name: '既然...但是', description: '错误搭配，应为"既然...就..."', correct: false },
+                    { pattern: /把.*了/, name: '把...了', description: '把字句中不应使用"了"', correct: false },
+                    { pattern: /一边.*一边.*一边/, name: '多重一边', description: '一边...一边...结构最多使用两次', correct: false }
+                ];
+                
+                let evaluation = {
+                    usedGrammar: [],
+                    usedVocab: [],
+                    grammarErrors: [],
+                    score: 0,
+                    feedback: '',
+                    syntaxAnalysis: '',
+                    wordUsageAnalysis: ''
+                };
+                
+                // 检查语法点使用
+                grammarPoints.forEach(point => {
+                    if (point.pattern.test(text)) {
+                        evaluation.usedGrammar.push(point);
+                        evaluation.score += 5; // 每个语法点加5分
+                    }
+                });
+                
+                // 检查语法错误
+                grammarErrors.forEach(error => {
+                    if (error.pattern.test(text)) {
+                        evaluation.grammarErrors.push(error);
+                        evaluation.score -= 2; // 每个语法错误减2分
+                    }
+                });
+                
+                // 检查词汇使用
+                let usedWords = [];
+                targetWords.forEach(word => {
+                    if (text.includes(word)) {
+                        usedWords.push(word);
+                        evaluation.usedVocab.push(word);
+                        evaluation.score += 2; // 每个目标词汇加2分
+                    }
+                });
+                
+                // 生成反馈
+                if (evaluation.score >= 15) {
+                    evaluation.feedback = '太棒了！你的回复使用了多个目标语法点和词汇，非常出色！';
+                } else if (evaluation.score >= 10) {
+                    evaluation.feedback = '很好！你的回复使用了一些目标语法点和词汇。';
+                } else if (evaluation.score >= 5) {
+                    evaluation.feedback = '不错的尝试！尝试多使用一些目标语法点和词汇。';
+                } else {
+                    evaluation.feedback = '继续努力！请尝试使用目标语法点和词汇来提高你的回复质量。';
+                }
+                
+                // 生成语法分析
+                if (evaluation.usedGrammar.length > 0 || evaluation.grammarErrors.length > 0) {
+                    evaluation.syntaxAnalysis = '语法分析：';
+                    
+                    if (evaluation.usedGrammar.length > 0) {
+                        evaluation.syntaxAnalysis += '<ul class="analysis-list correct">';
+                        evaluation.usedGrammar.forEach(grammar => {
+                            evaluation.syntaxAnalysis += `<li><span class="grammar-name">${grammar.name}</span>: 正确使用，${grammar.description}</li>`;
+                        });
+                        evaluation.syntaxAnalysis += '</ul>';
+                    }
+                    
+                    if (evaluation.grammarErrors.length > 0) {
+                        evaluation.syntaxAnalysis += '<ul class="analysis-list incorrect">';
+                        evaluation.grammarErrors.forEach(error => {
+                            evaluation.syntaxAnalysis += `<li><span class="grammar-name">${error.name}</span>: ${error.description}</li>`;
+                        });
+                        evaluation.syntaxAnalysis += '</ul>';
+                    }
+                } else {
+                    evaluation.syntaxAnalysis = '语法分析：未使用目标语法点。尝试在回复中使用"以便"、"既然...就..."、"把字句"或"一连"等语法结构。';
+                }
+                
+                // 生成词汇使用分析
+                if (evaluation.usedVocab.length > 0) {
+                    evaluation.wordUsageAnalysis = `词汇分析：你使用了${evaluation.usedVocab.length}个目标词汇（${evaluation.usedVocab.join('、')}）。`;
+                    
+                    // 根据词汇使用数量给出建议
+                    if (evaluation.usedVocab.length >= 5) {
+                        evaluation.wordUsageAnalysis += '词汇使用丰富多样，表达非常地道！';
+                    } else if (evaluation.usedVocab.length >= 3) {
+                        evaluation.wordUsageAnalysis += '词汇使用良好，可以尝试使用更多不同类型的词汇。';
+                    } else {
+                        evaluation.wordUsageAnalysis += '可以尝试使用更多目标词汇来丰富你的表达。';
+                    }
+                } else {
+                    evaluation.wordUsageAnalysis = '词汇分析：未使用任何目标词汇。尝试在回复中使用参考列表中的词汇来提高语言表达。';
+                }
+                
+                return evaluation;
+            }
+            
+            // 修改发送用户消息函数，加入语法评价
+            function sendUserMessage() {
+                if (!currentRole || !userInput.value.trim()) return;
+                
+                const round = Math.floor(dialogueArea.children.length / 2);
+                const userMessage = userInput.value;
+                
+                // 添加用户消息
+                addMessage(currentRole, userMessage);
+                
+                // 评估用户输入的语法
+                const grammarEvaluation = evaluateGrammar(userMessage);
+                
+                // 显示语法评价在反馈区域，而不是对话框中
+                showGrammarEvaluation(grammarEvaluation);
+                
+                // 清空输入
+                userInput.value = '';
+                
+                // 添加对方回复（使用AI生成）
+                setTimeout(() => {
+                    const otherRole = currentRole === 'doctor' ? 'patient' : 'doctor';
+                    
+                    // 使用AI生成回复，而不是预设回复
+                    const aiResponse = generateAIResponse(userMessage, otherRole, round);
+                    addMessage(otherRole, aiResponse);
+                    
+                    // 为用户生成智能回复选项
+                    generateSmartResponseOptions(userMessage, currentRole, round + 1);
+                    
+                }, 500);
+            }
+            
+            // 显示语法评价在反馈区域
+            function showGrammarEvaluation(evaluation) {
+                // 获取反馈区域
+                const grammarFeedback = document.getElementById('grammar-feedback');
+                
+                // 创建评价内容
+                let evaluationHTML = `
+                    <div class="current-evaluation">
+                        <h4>最新回复评价</h4>
+                        <div class="evaluation-header">
+                            <span class="evaluation-score">得分: ${evaluation.score}</span>
+                            <span class="evaluation-feedback">${evaluation.feedback}</span>
+                        </div>
+                        <div class="evaluation-analysis">
+                            <div class="syntax-analysis">
+                                ${evaluation.syntaxAnalysis}
+                            </div>
+                            <div class="word-usage-analysis">
+                                ${evaluation.wordUsageAnalysis}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grammar-guide">
+                        <p>请尝试在对话中使用以下语法：</p>
+                        <ul>
+                            <li><strong>以便</strong>: 用于表达目的</li>
+                            <li><strong>既然...就...</strong>: 表示在条件下的必然结论</li>
+                            <li><strong>把字句</strong>: 用于强调对象的处置</li>
+                            <li><strong>一连</strong>: 表示连续的动作</li>
+                        </ul>
+                    </div>
+                `;
+                
+                // 更新反馈区域内容
+                grammarFeedback.innerHTML = evaluationHTML;
+                
+                // 高亮显示反馈区域以吸引注意
+                const feedbackSection = document.querySelector('.feedback-section');
+                feedbackSection.classList.add('highlight');
+                
+                // 3秒后移除高亮
+                setTimeout(() => {
+                    feedbackSection.classList.remove('highlight');
+                }, 3000);
+            }
+            
+            // 初始加载欢迎信息
+            dialogueArea.innerHTML = '<div class="message system">请选择你想扮演的角色开始对话练习。</div>';
+        });
+    </script>
+</body>
+</html>

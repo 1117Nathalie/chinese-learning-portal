@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese Syntax Analysis - Text Sentences</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .sentence-structure {
+            border-left: 4px solid #4299e1;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .word {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            margin: 0.25rem;
+            border-radius: 0.25rem;
+        }
+        .subject {
+            background-color: #c6f6d5;
+        }
+        .verb {
+            background-color: #bee3f8;
+        }
+        .object {
+            background-color: #fbd5e0;
+        }
+        .adverbial {
+            background-color: #e9d8fd;
+        }
+        .complement {
+            background-color: #fefcbf;
+        }
+        .attributive {
+            background-color: #fed7d7;
+        }
+        .conjunction {
+            background-color: #faf089;
+        }
+        .preposition {
+            background-color: #b2f5ea;
+        }
+        .tooltip {
+            position: relative;
+            cursor: pointer;
+        }
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6 text-center">Chinese Syntax Analysis - Text Sentences</h1>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Important Sentences from the Text</h2>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Sentence 1:</h3>
+                <p class="mb-2">"十一"黄金周期间，很多人选择旅游、探亲，逛街或是宅在家中。</p>
+                <div class="mb-2">
+                    <span class="adverbial tooltip word">"十一"黄金周期间<span class="tooltip-text">Adverbial: time</span></span>，
+                    <span class="subject tooltip word">很多人<span class="tooltip-text">Subject</span></span>
+                    <span class="verb tooltip word">选择<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">旅游<span class="tooltip-text">Object</span></span>、
+                    <span class="object tooltip word">探亲<span class="tooltip-text">Object</span></span>，
+                    <span class="object tooltip word">逛街<span class="tooltip-text">Object</span></span>
+                    <span class="conjunction tooltip word">或是<span class="tooltip-text">Conjunction: options</span></span>
+                    <span class="verb tooltip word">宅<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="adverbial tooltip word">在家中<span class="tooltip-text">Adverbial: place</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This is a complex sentence with a time adverbial. "'十一'黄金周期间" (During the National Day Golden Week) is a time adverbial that modifies the entire sentence.
+                    The subject is "很多人" (many people), the predicate verb is "选择" (choose), and the object is a parallel structure "旅游、探亲，逛街或是宅在家中" (traveling, visiting relatives, shopping, or staying at home).
+                    "或是" here indicates options, connecting multiple parallel items.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Sentence 2:</h3>
+                <p class="mb-2">医生建议：假期的最后一天最好收住游乐的心，静下来做点几安静的事情。</p>
+                <div class="mb-2">
+                    <span class="subject tooltip word">医生<span class="tooltip-text">Subject</span></span>
+                    <span class="verb tooltip word">建议<span class="tooltip-text">Verb: predicate</span></span>：
+                    <span class="adverbial tooltip word">假期的最后一天<span class="tooltip-text">Adverbial: time</span></span>
+                    <span class="adverbial tooltip word">最好<span class="tooltip-text">Adverbial: suggestion</span></span>
+                    <span class="verb tooltip word">收住<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="attributive tooltip word">游乐的<span class="tooltip-text">Attributive: modifier</span></span>
+                    <span class="object tooltip word">心<span class="tooltip-text">Object</span></span>，
+                    <span class="verb tooltip word">静下来<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="verb tooltip word">做<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">点几安静的事情<span class="tooltip-text">Object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This is a sentence with a quotation. "医生建议" (The doctor suggests) is the main clause, and the content after the colon is the quotation.
+                    The quotation part is a complex sentence consisting of two parallel clauses: "假期的最后一天最好收住游乐的心" (It's best to restrain the desire for entertainment on the last day of the holiday) and "静下来做点几安静的事情" (calm down and do some quiet activities).
+                    "假期的最后一天" (the last day of the holiday) is a time adverbial, and "最好" (best) is a modal adverb indicating suggestion.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Sentence 3:</h3>
+                <p class="mb-2">安迪：我是宅男，特别喜欢玩网络游戏。</p>
+                <div class="mb-2">
+                    <span class="subject tooltip word">我<span class="tooltip-text">Subject</span></span>
+                    <span class="verb tooltip word">是<span class="tooltip-text">Linking verb</span></span>
+                    <span class="object tooltip word">宅男<span class="tooltip-text">Predicate nominal</span></span>，
+                    <span class="adverbial tooltip word">特别<span class="tooltip-text">Adverbial: degree</span></span>
+                    <span class="verb tooltip word">喜欢<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="verb tooltip word">玩<span class="tooltip-text">Verb: object complement</span></span>
+                    <span class="object tooltip word">网络游戏<span class="tooltip-text">Object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence consists of two clauses connected by a comma. The first clause "我是宅男" (I am a homebody) has a subject-verb-complement structure, where "我" (I) is the subject, "是" (am) is the linking verb, and "宅男" (homebody) is the predicate nominal.
+                    The second clause "特别喜欢玩网络游戏" (especially like playing online games) omits the subject "我" (I), with "特别" (especially) as a degree adverbial, "喜欢" (like) as the predicate verb, and "玩网络游戏" (playing online games) as a verb-object structure functioning as the object, where "玩" (play) is the verb and "网络游戏" (online games) is the object.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Sentence 4:</h3>
+                <p class="mb-2">苏菲：我最大的爱好是吃。亲朋好友聚会，常常会大吃大喝。</p>
+                <div class="mb-2">
+                    <span class="subject tooltip word">我<span class="tooltip-text">Subject</span></span>
+                    <span class="attributive tooltip word">最大的<span class="tooltip-text">Attributive: modifier</span></span>
+                    <span class="subject tooltip word">爱好<span class="tooltip-text">Part of subject</span></span>
+                    <span class="verb tooltip word">是<span class="tooltip-text">Linking verb</span></span>
+                    <span class="object tooltip word">吃<span class="tooltip-text">Predicate nominal</span></span>。
+                    <span class="adverbial tooltip word">亲朋好友聚会<span class="tooltip-text">Adverbial: time</span></span>，
+                    <span class="adverbial tooltip word">常常<span class="tooltip-text">Adverbial: frequency</span></span>
+                    <span class="verb tooltip word">会<span class="tooltip-text">Modal verb</span></span>
+                    <span class="verb tooltip word">大吃大喝<span class="tooltip-text">Verb: reduplicated form</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This passage contains two sentences. The first sentence "我最大的爱好是吃" (My biggest hobby is eating) has a subject-verb-complement structure, where "我最大的爱好" (my biggest hobby) is the subject (with "最大的" as an attributive modifying "爱好"), "是" (is) is the linking verb, and "吃" (eating) is the predicate nominal.
+                    The second sentence "亲朋好友聚会，常常会大吃大喝" (When gathering with family and friends, [I] often eat and drink a lot) has "亲朋好友聚会" (gathering with family and friends) as a time adverbial, "常常" (often) as a frequency adverbial, "会" (will) as a modal verb, and "大吃大喝" (eat and drink a lot) as the predicate verb. The subject "我" (I) is omitted in this sentence.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Sentence 5:</h3>
+                <p class="mb-2">我也知道这样对身体不好。但是我总管不住自己，所以一到假期我就会腹痛、消化不良。</p>
+                <div class="mb-2">
+                    <span class="subject tooltip word">我<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">也<span class="tooltip-text">Adverbial: indicating similarity</span></span>
+                    <span class="verb tooltip word">知道<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">这样对身体不好<span class="tooltip-text">Object clause</span></span>。
+                    <span class="conjunction tooltip word">但是<span class="tooltip-text">Conjunction: indicating contrast</span></span>
+                    <span class="subject tooltip word">我<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">总<span class="tooltip-text">Adverbial: frequency</span></span>
+                    <span class="verb tooltip word">管不住<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">自己<span class="tooltip-text">Object</span></span>，
+                    <span class="conjunction tooltip word">所以<span class="tooltip-text">Conjunction: indicating cause-effect</span></span>
+                    <span class="adverbial tooltip word">一到假期<span class="tooltip-text">Adverbial: time</span></span>
+                    <span class="subject tooltip word">我<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">就<span class="tooltip-text">Adverbial: indicating immediacy</span></span>
+                    <span class="verb tooltip word">会<span class="tooltip-text">Modal verb</span></span>
+                    <span class="verb tooltip word">腹痛<span class="tooltip-text">Verb: predicate</span></span>、
+                    <span class="verb tooltip word">消化不良<span class="tooltip-text">Verb: predicate</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This passage contains three clauses forming a complex sentence. In the first clause "我也知道这样对身体不好" (I also know this is not good for health), "我" (I) is the subject, "也" (also) is an adverbial indicating similarity, "知道" (know) is the predicate verb, and "这样对身体不好" (this is not good for health) is the object clause.
+                    In the second clause "但是我总管不住自己" (but I always can't control myself), "但是" (but) is a conjunction indicating contrast, "我" (I) is the subject, "总" (always) is a frequency adverbial, "管不住" (can't control) is the predicate verb, and "自己" (myself) is the object.
+                    In the third clause "所以一到假期我就会腹痛、消化不良" (so once the holiday comes, I will have stomachache and indigestion), "所以" (so) is a conjunction indicating cause-effect, "一到假期" (once the holiday comes) is a time adverbial, "我" (I) is the subject, "就" (then) is an adverbial indicating immediacy, "会" (will) is a modal verb, and "腹痛、消化不良" (stomachache and indigestion) are parallel predicate verbs.
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Sentence 6:</h3>
+                <p class="mb-2">一些人之所以上班会有心理不适的现象，是因为还没有实现心理角色的转换。</p>
+                <div class="mb-2">
+                    <span class="subject tooltip word">一些人<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">之所以<span class="tooltip-text">Adverbial: indicating reason</span></span>
+                    <span class="adverbial tooltip word">上班<span class="tooltip-text">Adverbial: time</span></span>
+                    <span class="verb tooltip word">会<span class="tooltip-text">Modal verb</span></span>
+                    <span class="verb tooltip word">有<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="attributive tooltip word">心理<span class="tooltip-text">Attributive: modifier</span></span>
+                    <span class="attributive tooltip word">不适的<span class="tooltip-text">Attributive: modifier</span></span>
+                    <span class="object tooltip word">现象<span class="tooltip-text">Object</span></span>，
+                    <span class="verb tooltip word">是<span class="tooltip-text">Linking verb</span></span>
+                    <span class="preposition tooltip word">因为<span class="tooltip-text">Preposition</span></span>
+                    <span class="adverbial tooltip word">还<span class="tooltip-text">Adverbial: indicating continuation</span></span>
+                    <span class="adverbial tooltip word">没有<span class="tooltip-text">Adverbial: negation</span></span>
+                    <span class="verb tooltip word">实现<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="attributive tooltip word">心理<span class="tooltip-text">Attributive: modifier</span></span>
+                    <span class="attributive tooltip word">角色的<span class="tooltip-text">Attributive: modifier</span></span>
+                    <span class="object tooltip word">转换<span class="tooltip-text">Object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This is a sentence with a "之所以...是因为..." (the reason why...is because...) structure, expressing a cause-effect relationship.
+                    "一些人之所以上班会有心理不适的现象" (the reason why some people experience psychological discomfort at work) is the subject part, where "一些人" (some people) is the core subject, "之所以" (the reason why) introduces a reason adverbial, "上班" (at work) is a time adverbial, "会" (will) is a modal verb, "有" (have) is the predicate verb, and "心理不适的现象" (psychological discomfort phenomenon) is the object (with "心理" and "不适的" as attributives).
+                    "是" (is) is the linking verb, and "因为还没有实现心理角色的转换" (because they haven't achieved the psychological role transition) is the predicate part, where "因为" (because) is a preposition introducing a reason adverbial, "还没有" (still haven't) is a negative adverbial, "实现" (achieve) is the predicate verb, and "心理角色的转换" (psychological role transition) is the object (with "心理" and "角色的" as attributives).
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Sentence 7:</h3>
+                <p class="mb-2">紧张的工作之后，我们需要利用节假日来好好放松一下自己的身心。</p>
+                <div class="mb-2">
+                    <span class="adverbial tooltip word">紧张的工作之后<span class="tooltip-text">Adverbial: time</span></span>，
+                    <span class="subject tooltip word">我们<span class="tooltip-text">Subject</span></span>
+                    <span class="verb tooltip word">需要<span class="tooltip-text">Modal verb</span></span>
+                    <span class="verb tooltip word">利用<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="object tooltip word">节假日<span class="tooltip-text">Object</span></span>
+                    <span class="verb tooltip word">来<span class="tooltip-text">Directional verb</span></span>
+                    <span class="adverbial tooltip word">好好<span class="tooltip-text">Adverbial: degree</span></span>
+                    <span class="verb tooltip word">放松<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="complement tooltip word">一下<span class="tooltip-text">Complement: indicating short duration</span></span>
+                    <span class="attributive tooltip word">自己的<span class="tooltip-text">Attributive: modifier</span></span>
+                    <span class="object tooltip word">身心<span class="tooltip-text">Object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence begins with "紧张的工作之后" (after intense work) as a time adverbial that modifies the entire sentence.
+                    "我们" (we) is the subject, "需要" (need) is a modal verb, "利用" (use) is the predicate verb, and "节假日" (holidays) is the object.
+                    "来" (to) is a directional verb introducing a purpose, "好好" (well) is a degree adverbial, "放松" (relax) is the predicate verb, "一下" (a bit) is a complement indicating short duration, and "自己的身心" (one's body and mind) is the object (with "自己的" as an attributive).
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Sentence 8:</h3>
+                <p class="mb-2">在这一单元里，我们首先请几位朋友谈谈他们的假期是如何度过的。</p>
+                <div class="mb-2">
+                    <span class="adverbial tooltip word">在这一单元里<span class="tooltip-text">Adverbial: place</span></span>，
+                    <span class="subject tooltip word">我们<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">首先<span class="tooltip-text">Adverbial: sequence</span></span>
+                    <span class="verb tooltip word">请<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="attributive tooltip word">几位<span class="tooltip-text">Attributive: modifier</span></span>
+                    <span class="object tooltip word">朋友<span class="tooltip-text">Object</span></span>
+                    <span class="verb tooltip word">谈谈<span class="tooltip-text">Verb: object complement</span></span>
+                    <span class="attributive tooltip word">他们的<span class="tooltip-text">Attributive: modifier</span></span>
+                    <span class="subject tooltip word">假期<span class="tooltip-text">Subject</span></span>
+                    <span class="verb tooltip word">是<span class="tooltip-text">Linking verb</span></span>
+                    <span class="adverbial tooltip word">如何<span class="tooltip-text">Adverbial: manner</span></span>
+                    <span class="verb tooltip word">度过<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="complement tooltip word">的<span class="tooltip-text">Structural particle</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This sentence begins with "在这一单元里" (in this unit) as a place adverbial that modifies the entire sentence.
+                    "我们" (we) is the subject, "首先" (first) is a sequence adverbial, "请" (invite) is the predicate verb, and "几位朋友" (several friends) is the object (with "几位" as an attributive).
+                    "谈谈" (talk about) is a verb functioning as an object complement, followed by an object clause "他们的假期是如何度过的" (how they spent their holidays), where "他们的" (their) is an attributive, "假期" (holiday) is the subject, "是" (is) is the linking verb, and "如何度过的" (how spent) is the predicate (with "如何" as a manner adverbial, "度过" as the predicate verb, and "的" as a structural particle).
+                </p>
+            </div>
+            
+            <div class="sentence-structure">
+                <h3 class="text-xl font-medium mb-2">Sentence 9:</h3>
+                <p class="mb-2">张明和月红结婚两年多了，夫妻感情很好。但是每到假期的时候，两个人就开始吵架。</p>
+                <div class="mb-2">
+                    <span class="subject tooltip word">张明和月红<span class="tooltip-text">Subject</span></span>
+                    <span class="verb tooltip word">结婚<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="complement tooltip word">两年多了<span class="tooltip-text">Complement: time</span></span>，
+                    <span class="subject tooltip word">夫妻感情<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">很<span class="tooltip-text">Adverbial: degree</span></span>
+                    <span class="verb tooltip word">好<span class="tooltip-text">Adjective: predicate</span></span>。
+                    <span class="conjunction tooltip word">但是<span class="tooltip-text">Conjunction: indicating contrast</span></span>
+                    <span class="adverbial tooltip word">每到假期的时候<span class="tooltip-text">Adverbial: time</span></span>，
+                    <span class="subject tooltip word">两个人<span class="tooltip-text">Subject</span></span>
+                    <span class="adverbial tooltip word">就<span class="tooltip-text">Adverbial: indicating immediacy</span></span>
+                    <span class="verb tooltip word">开始<span class="tooltip-text">Verb: predicate</span></span>
+                    <span class="verb tooltip word">吵架<span class="tooltip-text">Verb: object</span></span>。
+                </div>
+                <p class="text-gray-700">
+                    <strong>Syntax Analysis:</strong> This passage contains three clauses. In the first clause "张明和月红结婚两年多了" (Zhang Ming and Yue Hong have been married for over two years), "张明和月红" (Zhang Ming and Yue Hong) is the subject, "结婚" (marry) is the predicate verb, and "两年多了" (over two years) is a time complement.
+                    In the second clause "夫妻感情很好" (their marital relationship is very good), "夫妻感情" (marital relationship) is the subject, "很" (very) is a degree adverbial, and "好" (good) is a predicate adjective.
+                    In the third clause "但是每到假期的时候，两个人就开始吵架" (but whenever the holiday comes, the two start to quarrel), "但是" (but) is a conjunction indicating contrast, "每到假期的时候" (whenever the holiday comes) is a time adverbial, "两个人" (the two) is the subject, "就" (then) is an adverbial indicating immediacy, "开始" (start) is the predicate verb, and "吵架" (quarrel) is a verb functioning as the object.
+                </p>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-semibold mb-4">Grammatical Features Summary</h2>
+            <ul class="list-disc pl-6 mb-4">
+                <li class="mb-2"><strong>Use of Time Adverbials:</strong> In Chinese, time adverbials typically appear at the beginning of a sentence or before the subject, such as "紧张的工作之后" (after intense work) and "每到假期的时候" (whenever the holiday comes).</li>
+                <li class="mb-2"><strong>Use of Conjunctions:</strong> Conjunctions like "但是" (but) and "所以" (so) are used to connect clauses, expressing contrast, cause-effect, and other logical relationships.</li>
+                <li class="mb-2"><strong>Verb Reduplication:</strong> Forms like "休息休息" (take a rest) and "谈谈" (talk about) indicate the short duration or slight degree of an action.</li>
+                <li class="mb-2"><strong>Modal Verbs:</strong> Words like "会" (will) and "需要" (need) express possibility, necessity, and other modalities.</li>
+                <li class="mb-2"><strong>Use of Complements:</strong> Forms like "一下" (a bit) and "两年多了" (over two years) provide additional information about the time, degree, etc. of an action.</li>
+                <li class="mb-2"><strong>Position of Attributives:</strong> In Chinese, attributives typically appear before the words they modify, such as "紧张的工作" (intense work) and "自己的身心" (one's body and mind).</li>
+                <li class="mb-2"><strong>Subject Omission:</strong> In contexts where the subject is clear, Chinese often omits the subject, as in "常常会大吃大喝" (often eat and drink a lot) where the subject "我" (I) is omitted.</li>
+            </ul>
+            <p>
+                These sentences demonstrate various syntactic features of Chinese, including complex sentence structures, the use of adverbials, and verb reduplication forms. Understanding these syntactic features helps improve Chinese expression and comprehension abilities.
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Add interactive features, such as clicking on words to display detailed explanations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize tooltips and other functionality
+        });
+    </script>
+</body>
+</html> 

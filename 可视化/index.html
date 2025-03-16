@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汉语概念可视化学习门户</title>
+    <style>
+        /* 基础样式 */
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #343a40;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 页眉样式 */
+        header {
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 42px;
+            font-weight: bold;
+        }
+        
+        header p {
+            margin: 15px 0 0;
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* 导航栏 */
+        .nav-bar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .nav-brand {
+            font-weight: bold;
+            font-size: 18px;
+            color: #343a40;
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-btn {
+            padding: 8px 16px;
+            border: none;
+            background-color: #e9ecef;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #343a40;
+        }
+        
+        .nav-btn:hover {
+            background-color: #4F46E5;
+            color: white;
+        }
+        
+        /* 分类标题 */
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-icon {
+            margin-right: 12px;
+            font-size: 32px;
+        }
+        
+        /* 卡片网格 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .concept-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .concept-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            font-size: 20px;
+        }
+        
+        .card-body {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .card-title {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: #343a40;
+        }
+        
+        .card-pinyin {
+            color: #6c757d;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .card-description {
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        /* 卡片颜色变化 */
+        .vocab-card .card-header {
+            background: linear-gradient(135deg, #20c997, #0dcaf0);
+        }
+        
+        .grammar-card .card-header {
+            background: linear-gradient(135deg, #fd7e14, #ffc107);
+        }
+        
+        .idiom-card .card-header {
+            background: linear-gradient(135deg, #d63384, #dc3545);
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: white;
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+        
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4F46E5;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            font-size: 24px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        
+        .back-to-top:hover {
+            background: #3730a3;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 0;
+            }
+            
+            header h1 {
+                font-size: 32px;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .card-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="nav-bar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">汉语概念可视化学习门户</a>
+            <div class="nav-menu">
+                <a href="#vocab-section" class="nav-btn">生词</a>
+                <a href="#grammar-section" class="nav-btn">语法</a>
+                <a href="#idiom-section" class="nav-btn">成语</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页面标题 -->
+    <header>
+        <h1>汉语概念可视化学习门户</h1>
+        <p>通过视觉化方式学习汉语词汇和语法，让抽象概念变得直观易懂</p>
+    </header>
+    
+    <div class="container">
+        <!-- 生词部分 -->
+        <h2 id="vocab-section" class="section-title">
+            <span class="section-icon">📚</span>生词学习
+        </h2>
+        <p>通过视觉化方式理解汉语词汇，掌握词义和用法</p>
+        
+        <div class="card-grid">
+            <!-- 生词卡片 -->
+            <a href="concept-liyong.html" class="concept-card vocab-card">
+                <div class="card-header">动词</div>
+                <div class="card-body">
+                    <div class="card-icon">🛠️</div>
+                    <div class="card-title">利用</div>
+                    <div class="card-pinyin">lì yòng</div>
+                    <div class="card-description">使用、运用（资源、时间等）以达到特定目的</div>
+                </div>
+            </a>
+            
+            <a href="concept-tiaozheng.html" class="concept-card vocab-card">
+                <div class="card-header">动词</div>
+                <div class="card-body">
+                    <div class="card-icon">⚙️</div>
+                    <div class="card-title">调整</div>
+                    <div class="card-pinyin">tiáo zhěng</div>
+                    <div class="card-description">改变使适合，使恰当</div>
+                </div>
+            </a>
+            
+            <a href="concept-guodu.html" class="concept-card vocab-card">
+                <div class="card-header">名词/动词</div>
+                <div class="card-body">
+                    <div class="card-icon">🌈</div>
+                    <div class="card-title">过渡</div>
+                    <div class="card-pinyin">guò dù</div>
+                    <div class="card-description">从一种状态到另一种状态的转变过程</div>
+                </div>
+            </a>
+            
+            <a href="concept-youxiao.html" class="concept-card vocab-card">
+                <div class="card-header">形容词</div>
+                <div class="card-body">
+                    <div class="card-icon">✅</div>
+                    <div class="card-title">有效</div>
+                    <div class="card-pinyin">yǒu xiào</div>
+                    <div class="card-description">能够达到预期目的的，产生预期效果的</div>
+                </div>
+            </a>
+            
+            <a href="concept-zhuanhuan.html" class="concept-card vocab-card">
+                <div class="card-header">动词</div>
+                <div class="card-body">
+                    <div class="card-icon">🔄</div>
+                    <div class="card-title">转换</div>
+                    <div class="card-pinyin">zhuǎn huàn</div>
+                    <div class="card-description">从一种状态、形式改变到另一种</div>
+                </div>
+            </a>
+            
+            <a href="concept-shixian.html" class="concept-card vocab-card">
+                <div class="card-header">动词</div>
+                <div class="card-body">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title">实现</div>
+                    <div class="card-pinyin">shí xiàn</div>
+                    <div class="card-description">使计划、愿望等变为现实</div>
+                </div>
+            </a>
+        </div>
+        
+        <!-- 语法部分 -->
+        <h2 id="grammar-section" class="section-title">
+            <span class="section-icon">🔍</span>语法学习
+        </h2>
+        <p>通过视觉化方式理解汉语语法结构，掌握语法规则和用法</p>
+        
+        <div class="card-grid">
+            <!-- 语法卡片 -->
+            <a href="concept-yibian.html" class="concept-card grammar-card">
+                <div class="card-header">连词</div>
+                <div class="card-body">
+                    <div class="card-icon">🔗</div>
+                    <div class="card-title">以便</div>
+                    <div class="card-pinyin">yǐ biàn</div>
+                    <div class="card-description">表示目的，为了使某事更容易或更可能发生</div>
+                </div>
+            </a>
+            
+            <a href="concept-yinwei.html" class="concept-card grammar-card">
+                <div class="card-header">连词</div>
+                <div class="card-body">
+                    <div class="card-icon">🔄</div>
+                    <div class="card-title">因为...所以...</div>
+                    <div class="card-pinyin">yīn wèi... suǒ yǐ...</div>
+                    <div class="card-description">表示因果关系的连词结构</div>
+                </div>
+            </a>
+            
+            <a href="concept-le.html" class="concept-card grammar-card">
+                <div class="card-header">助词</div>
+                <div class="card-body">
+                    <div class="card-icon">⏱️</div>
+                    <div class="card-title">了</div>
+                    <div class="card-pinyin">le</div>
+                    <div class="card-description">表示动作的完成或状态的变化</div>
+                </div>
+            </a>
+        </div>
+        
+        <!-- 成语部分 -->
+        <h2 id="idiom-section" class="section-title">
+            <span class="section-icon">🧩</span>成语学习
+        </h2>
+        <p>通过视觉化方式理解汉语成语，掌握成语的意义和用法</p>
+        
+        <div class="card-grid">
+            <!-- 成语卡片 -->
+            <a href="concept-xinzhongyoushu.html" class="concept-card idiom-card">
+                <div class="card-header">成语</div>
+                <div class="card-body">
+                    <div class="card-icon">🧠</div>
+                    <div class="card-title">心中有数</div>
+                    <div class="card-pinyin">xīn zhōng yǒu shù</div>
+                    <div class="card-description">心里有把握，对情况了解清楚</div>
+                </div>
+            </a>
+            
+            <a href="concept-yiyanjiuding.html" class="concept-card idiom-card">
+                <div class="card-header">成语</div>
+                <div class="card-body">
+                    <div class="card-icon">🗣️</div>
+                    <div class="card-title">一言九鼎</div>
+                    <div class="card-pinyin">yī yán jiǔ dǐng</div>
+                    <div class="card-description">形容说话算数，非常有分量</div>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <h3 class="footer-title">汉语概念可视化学习门户</h3>
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">首页</a>
+                <a href="#vocab-section" class="footer-link">生词学习</a>
+                <a href="#grammar-section" class="footer-link">语法学习</a>
+                <a href="#idiom-section" class="footer-link">成语学习</a>
+            </div>
+            <div class="copyright">© 2023 汉语概念可视化学习门户. 保留所有权利.</div>
+        </div>
+    </footer>
+    
+    <!-- 返回顶部按钮 -->
+    <a href="#" class="back-to-top" title="返回顶部">↑</a>
+    
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // 返回顶部按钮显示/隐藏
+        window.onscroll = function() {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                document.querySelector('.back-to-top').style.display = "flex";
+            } else {
+                document.querySelector('.back-to-top').style.display = "none";
+            }
+        };
+    </script>
+</body>
+</html>
